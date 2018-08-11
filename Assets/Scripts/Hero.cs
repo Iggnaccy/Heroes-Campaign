@@ -11,17 +11,20 @@ public class Hero {
         Rogue,
         Warrior
     };
+    public int Cost { get; set; }
     public int Exp { get; set; }
     public int Level { get; set; }
     public string Name { get; private set; }
     public HeroProfession Profession { get; private set; }
     public int Salary { get; set; }
 
-    public Hero(string name, HeroProfession profession, int exp, int level, int salary) {
+    //there should be another construcor for reading saved Heros from file/db
+    public Hero(string name, HeroProfession profession, int cost, int salary) {
         Name = name;
         Profession = profession;
-        Exp = exp;
-        Level = level;
+        Cost = cost;
+        Exp = 0;
+        Level = 0;
         Salary = salary;
     }
 }
