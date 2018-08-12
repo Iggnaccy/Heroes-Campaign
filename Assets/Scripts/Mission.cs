@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mission: MonoBehaviour
+public class Mission 
 {
     public enum MissionTypes
     {
@@ -16,12 +16,14 @@ public class Mission: MonoBehaviour
 
 
 
-    public Kingdom AreaOfMission { get; private set; }
-    public Hero ParticipatingHero { get; private set; }
-    public Player PiggyBank { get; private set; }
+    //public Game GameReference;
+    public List<Hero> ParticipatingHeroes { get; private set; }
 
 
-
+    public string MissionName { get; private set; }
+    public string MissionDescription { get; private set; }
+    public double MissionTime { get; private set; }
+    public int Kingdoms { get; private set; }
     public int ChaosReduction { get; private set; }
     public int GoldEarned { get; private set; }
     public int ExpEarned { get; private set; }
@@ -30,55 +32,65 @@ public class Mission: MonoBehaviour
 
 
 
-    public Mission(ref Kingdom areaOfMission, ref Hero participatingHero, ref Player piggyBank, int chaosReduction, int goldEarned, int expEarned, int fameEarned, MissionTypes missionType)
+    public Mission(ref List<Hero> participatingHeroes, string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, MissionTypes missionType)
     {
-        AreaOfMission = areaOfMission;
-        ParticipatingHero = participatingHero;
-        PiggyBank = piggyBank;
+        ParticipatingHeroes = participatingHeroes;
+
+
+        MissionName = missionName;
+        MissionDescription = missionDescription;
+
+        MissionTime = missionTime;
+        Kingdoms = kingdoms;
 
         ChaosReduction = chaosReduction;
         GoldEarned = goldEarned;
         ExpEarned = expEarned;
         FameEarned = fameEarned;
+
         MissionType = missionType;
     }
 
 
-    public virtual void BeginMission()
+    public void BeginMission()
     {
-
-
+        //System.Timers.Timer TimeUntilEnd=new System.Timers.Timer();
+        //TimeUntilEnd.Interval = MissionTime * 1000;
+        double DeltaTime=MissionTime;
     }
 
-    public virtual void Victory()
+   /* public void Victory()
     {
-        if (ParticipatingHero.Level < StaticValues.LevelCap)
+        for (int i = 0; i < ParticipatingHeroes.Count; i++)
         {
-            ParticipatingHero.Exp += ExpEarned;
-            while (ParticipatingHero.Exp > StaticValues.ExpNeededToNextLevel[ParticipatingHero.Level])
+            if (ParticipatingHeroes[i].Level < StaticValues.LevelCap)
             {
-                ParticipatingHero.Exp -= StaticValues.ExpNeededToNextLevel[ParticipatingHero.Level];
-                ParticipatingHero.Level++;
-                if (ParticipatingHero.Level == StaticValues.LevelCap)
+                ParticipatingHeroes[i].Exp += ExpEarned;
+                while (ParticipatingHeroes[i].Exp > StaticValues.ExpNeededToNextLevel[ParticipatingHeroes[i].Level])
                 {
-                    ParticipatingHero.Exp = 0;
-                    break;
+                    ParticipatingHeroes[i].Exp -= StaticValues.ExpNeededToNextLevel[ParticipatingHeroes[i].Level];
+                    ParticipatingHeroes[i].Level++;
+                    if (ParticipatingHeroes[i].Level == StaticValues.LevelCap)
+                    {
+                        ParticipatingHeroes[i].Exp = 0;
+                        break;
+                    }
                 }
             }
         }
 
 
-        PiggyBank.Fame += FameEarned;
-        PiggyBank.Gold += GoldEarned;
+        GameReference.changeChaosLevels(Kingdoms, -ChaosReduction);
+        GameReference.changeFame(FameEarned);
+        GameReference.changeGold(GoldEarned);
 
 
-        AreaOfMission.Chaos = System.Math.Max(0, AreaOfMission.Chaos - ChaosReduction);
-    }
+    }*/
 
 
 
 
-    public virtual void Defeat()
+    public void Defeat()
     {
 
     }

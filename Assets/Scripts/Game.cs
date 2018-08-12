@@ -6,6 +6,7 @@ public class Game : MonoBehaviour {
 
     private Player player;
     private List<Hero> availableHeroes;
+    private List<Kingdom> locations;
 
 	void Start () {
         player = new Player("test", 0, 1000);
@@ -24,4 +25,24 @@ public class Game : MonoBehaviour {
         for(int i = 0; i < count; i++)
             availableHeroes.Add(HeroGenerator.GenerateHero());
     }
+
+    public void changeChaosLevels(int BitMask, int amount)
+    {
+        for(int i=0; i<32; i++)
+        {
+            locations[i].Chaos = System.Math.Max(0, locations[i].Chaos + amount *(1&(BitMask>>i)));
+        }
+    }
+
+    public void changeFame(int amount)
+    {
+        player.Fame += amount;
+    }
+
+    public void changeGold(int amount)
+    {
+        player.Gold += amount;
+    }
+
+
 }
