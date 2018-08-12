@@ -9,7 +9,7 @@ public class Player {
 
     public List<Hero> Heroes { get; private set; }
 
-    Player(string name, int fame, int gold) {
+    public Player(string name, int fame, int gold) {
         Name = name;
         Fame = fame;
         Gold = gold;
