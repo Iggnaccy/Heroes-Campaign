@@ -30,6 +30,60 @@ public class Hero {
         Male
     };
 
+    public class HeroStats {
+        public int agility { get; set; }
+        public int health { get; set; }
+        public int intelligence { get; set; }
+        public int mana { get; set; }
+        public int strength { get; set; }
+
+        //TODO: change this to some generics kung-fu
+        public static int paramsCount() {
+            return 5;
+        }
+
+        public HeroStats() { }
+
+        public HeroStats(int initialValue) {
+            agility = initialValue;
+            health = initialValue;
+            intelligence = initialValue;
+            mana = initialValue;
+            strength = initialValue;
+        }
+
+        public HeroStats(int _agility, int _health, int _intelligence, int _mana, int _strength) {
+            agility = _agility;
+            health = _health;
+            intelligence = _intelligence;
+            mana = _mana;
+            strength = _strength;
+        }
+
+        public static HeroStats operator +(HeroStats left, HeroStats right)
+        {
+            left.agility += right.agility;
+            left.health += right.health;
+            left.intelligence += right.intelligence;
+            left.mana += right.mana;
+            left.strength += right.strength;
+            return left;
+        }
+
+        public void ClampToZero() {
+            agility = Mathf.Max(agility, 0);
+            health = Mathf.Max(health, 0);
+            intelligence = Mathf.Max(intelligence, 0);
+            mana = Mathf.Max(mana, 0);
+            strength = Mathf.Max(strength, 0);
+        }
+
+        public void Log() {
+            Debug.Log(string.Format("Agility: {0}, Health: {1}, Intelligence: {2}, Mana: {3}, Strength: {4}",
+                agility, health, intelligence, mana, strength));
+        }
+    }
+
     public int Cost { get; set; }
     public int Exp { get; set; }
     public int Level { get; set; }
@@ -37,19 +91,21 @@ public class Hero {
     public HeroProfession Profession { get; private set; }
     public HeroRace Race { get; private set; }
     public HeroSex Sex { get; private set; }
+    public HeroStats Stats {get; set;}
     public int Salary { get; set; }
 
     //there should be another construcor for reading saved Heros from file/db
     public Hero(string name, HeroProfession profession, HeroRace race, HeroSex sex, 
-        int cost, int salary)
+        HeroStats stats, int level, int cost, int salary)
     {
         Name = name;
         Profession = profession;
         Race = race;
         Sex = sex;
+        Stats = stats;
+        Level = level;
         Cost = cost;
         Exp = StaticValues.startingExp;
-        Level = StaticValues.startingLevel;
         Salary = salary;
     }
 
