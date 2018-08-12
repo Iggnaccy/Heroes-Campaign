@@ -7,30 +7,33 @@ public class Player {
     public int Gold { get; set; }
     public string Name { get; private set; }
 
-    public List<Hero> heroes { get; private set; }
+    public List<Hero> Heroes { get; private set; }
 
     Player(string name, int fame, int gold) {
         Name = name;
         Fame = fame;
         Gold = gold;
-        heroes = new List<Hero>();
+        Heroes = new List<Hero>();
     }
 
-    public bool RecruitHero(Hero hero) {
-        if (hero.Cost > Gold)
-            return false;
-        Gold -= hero.Cost;
-        heroes.Add(hero);
-        return true;
-    }
-
-    public bool PaySalary() {
+    public bool PaySalary()
+    {
         int totalCost = 0;
-        foreach (Hero hero in heroes) 
+        foreach (Hero hero in Heroes)
             totalCost += hero.Salary;
         if (totalCost > Gold)
             return false;
         Gold -= totalCost;
         return true;
     }
+
+    public bool RecruitHero(Hero hero)
+    {
+        if (hero.Cost > Gold)
+            return false;
+        Gold -= hero.Cost;
+        Heroes.Add(hero);
+        return true;
+    }
+
 }

@@ -19,12 +19,13 @@ public class Hero {
     public int Salary { get; set; }
 
     //there should be another construcor for reading saved Heros from file/db
-    public Hero(string name, HeroProfession profession, int cost, int salary) {
+    public Hero(string name, HeroProfession profession, int cost, int salary)
+    {
         Name = name;
         Profession = profession;
         Cost = cost;
-        Exp = 0;
-        Level = 0;
+        Exp = StaticValues.startingExp;
+        Level = StaticValues.startingLevel;
         Salary = salary;
     }
 }
