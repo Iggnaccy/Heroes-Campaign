@@ -17,7 +17,7 @@ public class Mission
 
 
     //public Game GameReference;
-    public List<Hero> ParticipatingHeroes { get; private set; }
+    public List<Hero> ParticipatingHeroes { get; set; }
 
 
     public string MissionName { get; private set; }
