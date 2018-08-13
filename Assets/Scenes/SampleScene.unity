@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1267,7 +1267,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1974,8 +1974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: -310, y: -10}
+  m_AnchoredPosition: {x: 147.5, y: 0}
+  m_SizeDelta: {x: -305, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &711823853
 MonoBehaviour:
@@ -2682,6 +2682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062177412}
   - component: {fileID: 1062177413}
+  - component: {fileID: 1062177414}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2713,6 +2714,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89a264a53196734c950319832829d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1062177414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062177411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18381865527d4c24daa063c11c14f40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GuildManagementHeroPanel: {fileID: 1210250464}
+  GuildManagementHeroDescription: {fileID: 418568971}
 --- !u!1 &1079726428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,12 +3237,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3879,6 +3893,54 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1363504616}
   m_CullTransparentMesh: 0
+--- !u!1 &1372260929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1372260931}
+  - component: {fileID: 1372260930}
+  m_Layer: 0
+  m_Name: PrefabHolder
+  m_TagString: PrefabHolder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1372260930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1372260929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc5b77603b21154088a1e268d28a05f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GuildManagementHeroButton: {fileID: 1492622469977724, guid: db62049d2dac1ec4f99197f3e19817d2,
+    type: 2}
+  RecruitHeroButton: {fileID: 1025094067602800, guid: 46da20a0488cd804eb5f5a9ed131ed46,
+    type: 2}
+  MissionAssignmentHeroButton: {fileID: 1868481720447628, guid: f60257b53db182f4ebb0616e6288de78,
+    type: 2}
+  MissionButton: {fileID: 1687774782796084, guid: 11646757ecd86414da143a77af07430a,
+    type: 2}
+--- !u!4 &1372260931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1372260929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375659233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,7 +4033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1391083131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3990,8 +4052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 37.5}
-  m_SizeDelta: {x: -40, y: -115}
+  m_AnchoredPosition: {x: 0, y: 40}
+  m_SizeDelta: {x: -10, y: -90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391083132
 MonoBehaviour:
@@ -5036,7 +5098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 525, y: 245.00002}
+  m_AnchoredPosition: {x: 520, y: 245.00002}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2108875331

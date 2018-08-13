@@ -31,56 +31,56 @@ public class Hero {
     };
 
     public class HeroStats {
-        public int agility { get; set; }
-        public int health { get; set; }
-        public int intelligence { get; set; }
-        public int mana { get; set; }
-        public int strength { get; set; }
+        public int Agility { get; set; }
+        public int Health { get; set; }
+        public int Intelligence { get; set; }
+        public int Mana { get; set; }
+        public int Strength { get; set; }
 
         //TODO: change this to some generics kung-fu
-        public static int paramsCount() {
+        public static int ParamsCount() {
             return 5;
         }
 
         public HeroStats() { }
 
         public HeroStats(int initialValue) {
-            agility = initialValue;
-            health = initialValue;
-            intelligence = initialValue;
-            mana = initialValue;
-            strength = initialValue;
+            Agility = initialValue;
+            Health = initialValue;
+            Intelligence = initialValue;
+            Mana = initialValue;
+            Strength = initialValue;
         }
 
         public HeroStats(int _agility, int _health, int _intelligence, int _mana, int _strength) {
-            agility = _agility;
-            health = _health;
-            intelligence = _intelligence;
-            mana = _mana;
-            strength = _strength;
+            Agility = _agility;
+            Health = _health;
+            Intelligence = _intelligence;
+            Mana = _mana;
+            Strength = _strength;
         }
 
         public static HeroStats operator +(HeroStats left, HeroStats right)
         {
-            left.agility += right.agility;
-            left.health += right.health;
-            left.intelligence += right.intelligence;
-            left.mana += right.mana;
-            left.strength += right.strength;
+            left.Agility += right.Agility;
+            left.Health += right.Health;
+            left.Intelligence += right.Intelligence;
+            left.Mana += right.Mana;
+            left.Strength += right.Strength;
             return left;
         }
 
         public void ClampToZero() {
-            agility = Mathf.Max(agility, 0);
-            health = Mathf.Max(health, 0);
-            intelligence = Mathf.Max(intelligence, 0);
-            mana = Mathf.Max(mana, 0);
-            strength = Mathf.Max(strength, 0);
+            Agility = Mathf.Max(Agility, 0);
+            Health = Mathf.Max(Health, 0);
+            Intelligence = Mathf.Max(Intelligence, 0);
+            Mana = Mathf.Max(Mana, 0);
+            Strength = Mathf.Max(Strength, 0);
         }
 
         public void Log() {
             Debug.Log(string.Format("Agility: {0}, Health: {1}, Intelligence: {2}, Mana: {3}, Strength: {4}",
-                agility, health, intelligence, mana, strength));
+                Agility, Health, Intelligence, Mana, Strength));
         }
     }
 

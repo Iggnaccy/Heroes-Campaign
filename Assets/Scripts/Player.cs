@@ -29,8 +29,6 @@ public class Player {
 
     public bool RecruitHero(Hero hero)
     {
-        if (hero.Cost > Gold)
-            return false;
         Gold -= hero.Cost;
         Heroes.Add(hero);
         return true;
