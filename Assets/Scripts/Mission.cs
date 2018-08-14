@@ -17,7 +17,7 @@ public class Mission
 
 
     //public Game GameReference;
-    public List<Hero> ParticipatingHeroes { get; set; }
+    //public List<Hero> ParticipatingHeroes { get; set; }
 
 
     public string MissionName { get; private set; }
@@ -32,9 +32,8 @@ public class Mission
 
 
 
-    public Mission(ref List<Hero> participatingHeroes, string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, MissionTypes missionType)
+    public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, MissionTypes missionType)
     {
-        ParticipatingHeroes = participatingHeroes;
 
 
         MissionName = missionName;
