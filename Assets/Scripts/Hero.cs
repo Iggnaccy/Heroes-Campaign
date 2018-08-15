@@ -114,4 +114,30 @@ public class Hero {
         Debug.Log(string.Format("Name: {0}, Profession: {1}, Race: {2}, Sex: {3}, Cost: {4}, " +
             "Salary: {5}, Exp: {6}, Level: {7}", Name, Profession, Race, Sex, Cost, Salary, Exp, Level));
     }
+
+    public void GainExp(int amount)
+    {
+        if (Level < StaticValues.LevelCap)
+        {
+            Exp += amount;
+            while (Exp > StaticValues.ExpNeededToNextLevel[Level])
+            {
+                Exp -= StaticValues.ExpNeededToNextLevel[Level];
+                LevelUp();
+                if (Level == StaticValues.LevelCap)
+                {
+                    Exp = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void LevelUp()
+    {
+        Level++;
+        // To Do dodać zwiększanie się statystyk bohatera
+    }
+
+
 }
