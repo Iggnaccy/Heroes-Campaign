@@ -11,7 +11,7 @@ public class OngoingMission : MonoBehaviour
 
     public double RemainingTime { get; private set; }
 
-	void Start (Mission selectedMission, List<Hero> participatingHeroes, Game gameReference)
+	public OngoingMission (Mission selectedMission, List<Hero> participatingHeroes, Game gameReference)
     {
         SelectedMission = selectedMission;
         ParticipatingHeroes = participatingHeroes;
@@ -19,6 +19,12 @@ public class OngoingMission : MonoBehaviour
 
         RemainingTime = SelectedMission.MissionTime;
 	}
+
+    void Start()
+    {
+    }
+
+
 	
 	void Update () {
         RemainingTime -= Time.deltaTime;
