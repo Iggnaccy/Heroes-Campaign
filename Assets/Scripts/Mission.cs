@@ -16,14 +16,15 @@ public class Mission
 
 
 
-    //public Game GameReference;
-    //public List<Hero> ParticipatingHeroes { get; set; }
+    public Game GameReference;
+    public List<Hero> ParticipatingHeroes { get; set; }
 
 
     public string MissionName { get; private set; }
     public string MissionDescription { get; private set; }
 
     public double MissionTime { get; private set; }
+    public double RemainingTime;
 
     public int Kingdoms { get; private set; }
     public int ChaosReduction { get; private set; }
@@ -36,14 +37,16 @@ public class Mission
 
 
 
-    public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
+    public Mission(Game gameReference,   string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
     {
-
+        GameReference = gameReference;
+        ParticipatingHeroes = new List<Hero>();
 
         MissionName = missionName;
         MissionDescription = missionDescription;
 
         MissionTime = missionTime;
+        RemainingTime = MissionTime;
         Kingdoms = kingdoms;
 
         ChaosReduction = chaosReduction;
@@ -56,33 +59,24 @@ public class Mission
     }
 
 
-
-
-   /* public void Victory()
+    public void SetHeroes(List<Hero> participatingHeroes)
     {
-        for (int i = 0; i < ParticipatingHeroes.Count; i++)
-        {
-            if (ParticipatingHeroes[i].Level < StaticValues.LevelCap)
-            {
-                ParticipatingHeroes[i].Exp += ExpEarned;
-                while (ParticipatingHeroes[i].Exp > StaticValues.ExpNeededToNextLevel[ParticipatingHeroes[i].Level])
-                {
-                    ParticipatingHeroes[i].Exp -= StaticValues.ExpNeededToNextLevel[ParticipatingHeroes[i].Level];
-                    ParticipatingHeroes[i].Level++;
-                    if (ParticipatingHeroes[i].Level == StaticValues.LevelCap)
-                    {
-                        ParticipatingHeroes[i].Exp = 0;
-                        break;
-                    }
-                }
-            }
-        }
+        ParticipatingHeroes = participatingHeroes;
+    }
 
-
+    public void Victory()
+    {
         GameReference.changeChaosLevels(Kingdoms, -ChaosReduction);
         GameReference.changeFame(FameEarned);
         GameReference.changeGold(GoldEarned);
 
+        for (int i = 0; i < ParticipatingHeroes.Count; i++)
+        {
+            ParticipatingHeroes[i].GainExp(ExpEarned);
+        }
+        //To Do zwracanie poiwadomienia o ukończeniu misji
 
-    }*/
+        Debug.Log("Mission Acomplished");
+
+    }
 }

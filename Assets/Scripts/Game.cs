@@ -10,6 +10,7 @@ public class Game : MonoBehaviour {
 
     private List<Hero> availableHeroes;
     private List<Kingdom> locations;
+    private List<Mission> ActiveMission;
 
 	void Start () {
         rng = new System.Random();
@@ -28,18 +29,25 @@ public class Game : MonoBehaviour {
         locations = new List<Kingdom>();
         GenerateExampleKingdoms(5);
 
-        GameObject MissionHolder;
-        MissionHolder = new GameObject();
-
+        ActiveMission = new List<Mission>();
         //Przykład jak dodawać nowe misje, potem się usunie
-        Mission example = new Mission("name", "", 10.0, 31, -1, 0, 0, 0, 0, Mission.MissionTypes.Exploration);
-        MissionHolder.AddComponent<OngoingMission>();
-        MissionHolder.GetComponent<OngoingMission>().GameReference=this;
-        MissionHolder.GetComponent<OngoingMission>().SelectedMission =example;
-        MissionHolder.GetComponent<OngoingMission>().ParticipatingHeroes = availableHeroes;
+        Mission example = new Mission(this, "name", "", 10.0, 31, -1, 0, 0, 0, 0, Mission.MissionTypes.Exploration);
+        ActiveMission.Add(example);
+
+        
     }
-	
+
 	void Update () {
+        for(int i=0; i<ActiveMission.Count; i++)
+        {
+            ActiveMission[i].RemainingTime -= Time.deltaTime;
+            if(ActiveMission[i].RemainingTime<=0)
+            {
+                ActiveMission[i].Victory();
+                ActiveMission.RemoveAt(i);
+                i--;
+            }
+        }
 		
 	}
 
