@@ -18,7 +18,7 @@ public class HeroGenerator {
         string name = generateName(race, sex);
         int cost = 100;
         int salary = 20;
-        return new Hero(name, profession, race, sex, stats, level, cost, salary);
+        return new Hero(name, profession, race, sex, stats, level, cost, salary, age);
     }
 
     private static Hero.HeroProfession generateProfession()
@@ -56,7 +56,7 @@ public class HeroGenerator {
             { Hero.HeroProfession.Rogue,   new Hero.HeroStats  (15, 0, 10, 0, 5) },
             { Hero.HeroProfession.Warrior, new Hero.HeroStats  (0, 10, 0, 0, 15) }
         };
-       Assert.IsTrue(profMap.Count == Utils.getEnumLength<Hero.HeroProfession>());
+        Assert.IsTrue(profMap.Count == Utils.getEnumLength<Hero.HeroProfession>());
 
         Dictionary<Hero.HeroRace, Hero.HeroStats> raceMap = new Dictionary<Hero.HeroRace, Hero.HeroStats>{
             { Hero.HeroRace.Djin,     new Hero.HeroStats  (10, 0, 10, 0, 0) },
@@ -121,6 +121,11 @@ public class HeroGenerator {
             Assert.IsTrue(found);
         }
         return stats;
+    }
+
+    public static void LevelUpHero(Hero h) {
+        Hero.HeroStats gainedSkills = generateStats(h.Profession, h.Race, h.Sex, h.Age, 1);
+        h.Stats += gainedSkills;
     }
 
     //to do

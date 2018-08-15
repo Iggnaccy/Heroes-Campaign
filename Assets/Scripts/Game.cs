@@ -21,6 +21,9 @@ public class Game : MonoBehaviour {
         {
             hero.Log();
             hero.Stats.Log();
+            hero.LevelUp();
+            hero.Log();
+            hero.Stats.Log();
         }
 	}
 	
