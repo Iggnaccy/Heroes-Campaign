@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public class HeroGenerator {
 
-    private static Random rng;
+    private static System.Random rng;
 
-    public static Hero GenerateHero(Random random) {
+    public static Hero GenerateHero(System.Random random) {
         rng = random;
         Hero.HeroProfession profession = generateProfession();
         Hero.HeroRace race = generateRace();
@@ -130,6 +132,60 @@ public class HeroGenerator {
 
     //to do
     private static string generateName(Hero.HeroRace race, Hero.HeroSex sex) {
-        return "HAL-9000";
+        List<string> nordicFemale = (Resources.Load("HeroNames/NordicFemale") as TextAsset).text.Split('\n').ToList();
+        List<string> nordicMale = (Resources.Load("HeroNames/NordicMale") as TextAsset).text.Split('\n').ToList();
+        List<string> slavicFemale = (Resources.Load("HeroNames/SlavicFemale") as TextAsset).text.Split('\n').ToList();
+        List<string> slavicMale = (Resources.Load("HeroNames/SlavicMale") as TextAsset).text.Split('\n').ToList();
+        List<string> orcFemale = (Resources.Load("HeroNames/OrcFemale") as TextAsset).text.Split('\n').ToList();
+        List<string> orcMale = (Resources.Load("HeroNames/OrcMale") as TextAsset).text.Split('\n').ToList();
+        List<string> vampireFemale = (Resources.Load("HeroNames/VampireFemale") as TextAsset).text.Split('\n').ToList();
+        List<string> vampireMale = (Resources.Load("HeroNames/VampireMale") as TextAsset).text.Split('\n').ToList();
+        List<string> elfFemale = (Resources.Load("HeroNames/ElfFemale") as TextAsset).text.Split('\n').ToList();
+        List<string> elfMale = (Resources.Load("HeroNames/ElfMale") as TextAsset).text.Split('\n').ToList();
+        List<string> djin = (Resources.Load("HeroNames/Djin") as TextAsset).text.Split('\n').ToList();
+
+        Dictionary<char, List<string>> nameEncoding = new Dictionary<char, List<string>> {
+            { 'n', nordicFemale },
+            { 'N', nordicMale },
+            { 's', slavicFemale },
+            { 'S', slavicMale},
+            { 'o', orcFemale},
+            { 'O', orcMale},
+            { 'v', vampireFemale},
+            { 'V', vampireMale},
+            { 'e', elfFemale},
+            { 'E', elfMale},
+            { 'd', djin},
+            { 'D', djin},
+        };
+
+        Dictionary<Hero.HeroRace, string> nameMapping = new Dictionary<Hero.HeroRace, string>() {
+            { Hero.HeroRace.Djin, "dD"},
+            { Hero.HeroRace.Dwarf, "nN"},
+            { Hero.HeroRace.Elf, "eE"},
+            { Hero.HeroRace.Gnome, "oO"},
+            { Hero.HeroRace.Goblin, "oO"},
+            { Hero.HeroRace.Human, "nNsS"},
+            { Hero.HeroRace.Orc, "oO"},
+            { Hero.HeroRace.Skeletor, "vV"},
+            { Hero.HeroRace.Troll, "oO"},
+            { Hero.HeroRace.Vampire, "vV"}
+        };
+
+        Assert.IsTrue(nameMapping.Count == Utils.getEnumLength<Hero.HeroRace>());
+
+        string name = "ENDLESS_NAMELESS";
+        List<List<string>> listCandidates = new List<List<string>>();
+        foreach (char c in nameMapping[race]) {
+            if(c >= 'a' && c <= 'z' && sex == Hero.HeroSex.Female)
+                listCandidates.Add(nameEncoding[c]);
+            if (c >= 'A' && c <= 'Z' && sex == Hero.HeroSex.Male)
+                listCandidates.Add(nameEncoding[c]);
+        }
+        if (listCandidates.Count != 0)
+            name = Utils.markowNameGenerator(listCandidates[StaticValues.rng.Next() % listCandidates.Count], 2, 3, 10);
+
+        return name;
+        // return Utils.markowNameGenerator(nordicMaleNames, 2, 3, 10);
     }
 }
