@@ -15,7 +15,6 @@ public class Game : MonoBehaviour {
         rng = new System.Random();
         player = new Player("test", 0, 1000);
         availableHeroes = new List<Hero>();
-
         spawnHeroes(5);
         foreach (Hero hero in availableHeroes)
         {
@@ -25,7 +24,20 @@ public class Game : MonoBehaviour {
             hero.Log();
             hero.Stats.Log();
         }
-	}
+
+        locations = new List<Kingdom>();
+        GenerateExampleKingdoms(5);
+
+        GameObject MissionHolder;
+        MissionHolder = new GameObject();
+
+        //Przykład jak dodawać nowe misje, potem się usunie
+        Mission example = new Mission("name", "", 10.0, 31, -1, 0, 0, 0, 0, Mission.MissionTypes.Exploration);
+        MissionHolder.AddComponent<OngoingMission>();
+        MissionHolder.GetComponent<OngoingMission>().GameReference=this;
+        MissionHolder.GetComponent<OngoingMission>().SelectedMission =example;
+        MissionHolder.GetComponent<OngoingMission>().ParticipatingHeroes = availableHeroes;
+    }
 	
 	void Update () {
 		
@@ -36,9 +48,21 @@ public class Game : MonoBehaviour {
             availableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
 
+    public void GenerateExampleKingdoms(int count)
+    {
+        for(int i=0; i<count; i++)
+        {
+            locations.Add(new Kingdom("Kingdom" + i.ToString(), i, ""));
+        }
+    }
+
+
+
+
+
     public void changeChaosLevels(int BitMask, int amount)
     {
-        for(int i=0; i<32; i++)
+        for(int i=0; i<locations.Count; i++)
         {
             locations[i].Chaos = System.Math.Max(0, locations[i].Chaos + amount *(1&(BitMask>>i)));
         }

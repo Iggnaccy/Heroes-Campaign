@@ -5,23 +5,15 @@ using UnityEngine;
 public class OngoingMission : MonoBehaviour
 {
 
-    public Mission SelectedMission { get; private set; }
-    public List<Hero> ParticipatingHeroes { get; private set; }
-    public Game GameReference;
+    public Mission SelectedMission { get; set; }
+    public List<Hero> ParticipatingHeroes { get; set; }
+    public Game GameReference { get; set; }
 
     public double RemainingTime { get; private set; }
 
-	public OngoingMission (Mission selectedMission, List<Hero> participatingHeroes, Game gameReference)
-    {
-        SelectedMission = selectedMission;
-        ParticipatingHeroes = participatingHeroes;
-        GameReference = gameReference;
-
-        RemainingTime = SelectedMission.MissionTime;
-	}
-
     void Start()
     {
+        RemainingTime = SelectedMission.MissionTime;
     }
 
 
