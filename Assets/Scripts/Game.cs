@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
 
     private List<Hero> availableHeroes;
     private List<Kingdom> locations;
-    private List<Mission> ActiveMission;
+    private List<Mission> activeMission;
 
 	void Start () {
         rng = new System.Random();
@@ -27,24 +27,25 @@ public class Game : MonoBehaviour {
         }
 
         locations = new List<Kingdom>();
-        GenerateExampleKingdoms(5);
+        generateExampleKingdoms(5);
 
-        ActiveMission = new List<Mission>();
+        activeMission = new List<Mission>();
         //Przykład jak dodawać nowe misje, potem się usunie
-        Mission example = new Mission(this, "name", "", 10.0, 31, -1, 0, 0, 0, 0, Mission.MissionTypes.Exploration);
-        ActiveMission.Add(example);
+        Mission example = new Mission(this);
+        example.SetHeroes(availableHeroes);
+        activeMission.Add(example);
 
         
     }
 
 	void Update () {
-        for(int i=0; i<ActiveMission.Count; i++)
+        for(int i=0; i<activeMission.Count; i++)
         {
-            ActiveMission[i].RemainingTime -= Time.deltaTime;
-            if(ActiveMission[i].RemainingTime<=0)
+            activeMission[i].RemainingTime -= Time.deltaTime;
+            if(activeMission[i].RemainingTime<=0)
             {
-                ActiveMission[i].Victory();
-                ActiveMission.RemoveAt(i);
+                activeMission[i].Victory();
+                activeMission.RemoveAt(i);
                 i--;
             }
         }
@@ -56,7 +57,7 @@ public class Game : MonoBehaviour {
             availableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
 
-    public void GenerateExampleKingdoms(int count)
+    public void generateExampleKingdoms(int count)
     {
         for(int i=0; i<count; i++)
         {
@@ -86,5 +87,8 @@ public class Game : MonoBehaviour {
         player.Gold += amount;
     }
 
-
+    public int getNumberOfKingdoms()
+    {
+        return locations.Count;
+    }
 }

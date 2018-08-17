@@ -79,4 +79,31 @@ public class Mission
         Debug.Log("Mission Acomplished");
 
     }
+
+    public Mission(Game gameReference)
+    {
+        GameReference = gameReference;
+        MissionDificulty = Random.Range(1, 10);
+
+        MissionTime = Random.Range(600.0f, 1200.0f);
+        RemainingTime = MissionTime;
+
+        int tmp = GameReference.getNumberOfKingdoms();
+        Kingdoms = Random.Range(1, (1 << tmp) - 1);
+
+        ChaosReduction = -MissionDificulty;
+        GoldEarned = 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
+        ExpEarned= 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
+        FameEarned = 10 * MissionDificulty;
+
+        MissionType = Utils.generateRandomEnum<MissionTypes>(new System.Random());
+
+        Debug.Log(string.Format("MissionTime {0}, Kingdoms {1}, ChaosReduction {2}, GoldEarned {3}, ExpEarned {4}, FameEarned {5}, MissionDificulty {6} MissionType {7}",
+            MissionTime, Kingdoms, ChaosReduction, GoldEarned, ExpEarned, FameEarned, MissionDificulty, MissionType));
+
+    }
+
+
+
+
 }
