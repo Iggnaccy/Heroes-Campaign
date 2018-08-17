@@ -91,7 +91,7 @@ public class Mission
         int tmp = GameReference.getNumberOfKingdoms();
         Kingdoms = Random.Range(1, (1 << tmp) - 1);
 
-        ChaosReduction = -MissionDificulty;
+        ChaosReduction = MissionDificulty;
         GoldEarned = 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
         ExpEarned= 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
         FameEarned = 10 * MissionDificulty;
