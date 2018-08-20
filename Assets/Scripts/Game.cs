@@ -8,19 +8,19 @@ public class Game : MonoBehaviour {
     private Player player;
     private System.Random rng;
 
-    private List<Hero> availableHeroes;
-    private List<Kingdom> locations;
-    private List<Mission> missions;
+    public List<Hero> AvailableHeroes { get; private set; }
+    public List<Kingdom> Locations { get; private set; }
+    public List<Mission> Missions { get; private set; }
 
-    
 
-	void Start () {
+
+    void Start () {
         rng = new System.Random();
         player = new Player("test", 0, 1000);
-        availableHeroes = new List<Hero>();
+        AvailableHeroes = new List<Hero>();
 
         SpawnHeroes(5);
-        foreach (Hero hero in availableHeroes)
+        foreach (Hero hero in AvailableHeroes)
         {
             hero.Log();
             hero.Stats.Log();
@@ -35,14 +35,14 @@ public class Game : MonoBehaviour {
 
     public void SpawnHeroes(int count) {
         for(int i = 0; i < count; i++)
-            availableHeroes.Add(HeroGenerator.GenerateHero(rng));
+            AvailableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
 
     public void ChangeChaosLevels(int BitMask, int amount)
     {
         for(int i=0; i<32; i++)
         {
-            locations[i].Chaos = System.Math.Max(0, locations[i].Chaos + amount *(1&(BitMask>>i)));
+            Locations[i].Chaos = System.Math.Max(0, Locations[i].Chaos + amount *(1&(BitMask>>i)));
         }
     }
 

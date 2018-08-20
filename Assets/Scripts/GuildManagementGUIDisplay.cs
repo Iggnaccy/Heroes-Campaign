@@ -12,7 +12,7 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
     float GuildManagementHeroButtonHeight;
     int DisplayHero;
 
-    void Start()
+    void Awake()
     {
         ph = GameObject.FindGameObjectWithTag("PrefabHolder").GetComponent<PrefabHolder>();
         GuildManagementHeroButtonHeight = ph.GuildManagementHeroButton.GetComponent<RectTransform>().rect.height;
@@ -30,7 +30,7 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
         }
         for (int i = 0; i < player.Heroes.Count; i++)
         {
-            GameObject rt = (Instantiate(ph.GuildManagementHeroButton) as GameObject);
+            GameObject rt = Instantiate(ph.GuildManagementHeroButton);
             rt.transform.SetParent(GuildManagementHeroPanel.transform, false);
             rt.transform.localPosition = new Vector3(rt.transform.localPosition.x, rt.transform.localPosition.y - i * (GuildManagementHeroButtonHeight + 3));
             var button = rt.GetComponent<Button>();
@@ -54,12 +54,12 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
         {
             Hero h = player.Heroes[DisplayHero];
             GuildManagementHeroDescription.text =
-                $"Hero {h.Name}, Level {h.Level} ({h.Exp}/{StaticValues.ExpNeededToNextLevel[h.Level + 1]})\n" +
+                $"Hero {h.Name}, Level {h.Level} ({h.Exp}/{(h.Level <= StaticValues.ExpNeededToNextLevel.Length - 2 ? StaticValues.ExpNeededToNextLevel[h.Level + 1] : 0)})\n" +
                 $"Race: {h.Race}, {(h.Sex == Hero.HeroSex.Male ? "M" : "F")}\n" +
                 $"Profession: {h.Profession}\n" +
                 $"Salary: {h.Salary} gold/10 min\n\n" +
                 $"Stats:\n\n" +
-                $"Health: {h.Stats.Health}\t\t\n" +
+                $"Health: {h.Stats.Health}\n" +
                 $"Mana: {h.Stats.Mana}\n\n" +
                 $"Agility: {h.Stats.Agility}\n" +
                 $"Strength: {h.Stats.Strength}\n" +
