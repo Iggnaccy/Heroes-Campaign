@@ -12,8 +12,6 @@ public class Game : MonoBehaviour {
     public List<Kingdom> Locations { get; private set; }
     public List<Mission> Missions { get; private set; }
 
-
-
     void Start () {
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
@@ -34,13 +32,51 @@ public class Game : MonoBehaviour {
             hero.Stats.Log();
             Player.RecruitHero(hero);
         }
+        /*
         GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(Player);
         GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
+        GetComponent<HeroRecruitmentGUI>().DisplayHeroRecruitment(this);
+        */
     }
 	
 	void Update () {
 		
 	}
+
+    public void ChangeDisplay(int i)
+    {
+        var gm = GetComponent<GuildManagementGUIDisplay>();
+        var ma = GetComponent<MissionAssignmentGUI>();
+        var hr = GetComponent<HeroRecruitmentGUI>();
+        switch(i)
+        {
+            case 0:
+                gm.Clear();
+                ma.Clear();
+                hr.Clear();
+                break;
+            case 1:
+                gm.DisplayHeroButtons(Player);
+                ma.Clear();
+                hr.Clear();
+                break;
+            case 2:
+                ma.DisplayMissionPanel(this);
+                gm.Clear();
+                hr.Clear();
+                break;
+            case 3:
+                hr.DisplayHeroRecruitment(this);
+                gm.Clear();
+                ma.Clear();
+                break;
+            case 4:
+                gm.Clear();
+                hr.Clear();
+                ma.Clear();
+                break;
+        }
+    }
 
     public void SpawnHeroes(int count) {
         for(int i = 0; i < count; i++)

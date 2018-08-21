@@ -66,4 +66,16 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
                 $"Intelligence: {h.Stats.Intelligence}\n";
         }
     }
+
+    public void Clear()
+    {
+        foreach (Transform child in GuildManagementHeroPanel.transform)
+        {
+            if (child.tag.ToLower() != "slider")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        DisplayHero = -1;
+    }
 }

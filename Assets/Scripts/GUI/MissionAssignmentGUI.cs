@@ -63,4 +63,17 @@ public class MissionAssignmentGUI : MonoBehaviour {
         }
         MissionDesc.text += heroes;
     }
+
+    public void Clear()
+    {
+        foreach(Transform child in MissionPanel)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in HeroPanel)
+        {
+            Destroy(child.gameObject);
+        }
+        activeMission = -1;
+    }
 }
