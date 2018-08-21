@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
-    private Player player;
+    public Player Player { get; private set; }
     private System.Random rng;
 
     public List<Hero> AvailableHeroes { get; private set; }
@@ -16,17 +16,26 @@ public class Game : MonoBehaviour {
 
     void Start () {
         rng = new System.Random();
-        player = new Player("test", 0, 1000);
+        Player = new Player("test", 0, 1000);
         AvailableHeroes = new List<Hero>();
+        Missions = new List<Mission>
+        {
+            new Mission("test1", "test1", 150.0, 1, 4, 24, 5, -6, Mission.MissionTypes.Escort),
+            new Mission("test2", "test2", 130.0, 16, 2, 92, 15, 15, Mission.MissionTypes.Exploration),
+            new Mission("test3", "test3", 152.0, 8, 48, 21, 35, 7, Mission.MissionTypes.Defence),
+            new Mission("test4", "test4", 250.0, 4, 41, 241, 54, 6, Mission.MissionTypes.Extermination),
+            new Mission("test5", "test5", 190.0, 2, 9, 22, 9, 26, Mission.MissionTypes.Escort)
+        };
 
         SpawnHeroes(5);
         foreach (Hero hero in AvailableHeroes)
         {
             hero.Log();
             hero.Stats.Log();
-            player.RecruitHero(hero);
+            Player.RecruitHero(hero);
         }
-        GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(player);
+        GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(Player);
+        GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
     }
 	
 	void Update () {
@@ -48,12 +57,12 @@ public class Game : MonoBehaviour {
 
     public void ChangeFame(int amount)
     {
-        player.Fame += amount;
+        Player.Fame += amount;
     }
 
     public void ChangeGold(int amount)
     {
-        player.Gold += amount;
+        Player.Gold += amount;
     }
 
 
