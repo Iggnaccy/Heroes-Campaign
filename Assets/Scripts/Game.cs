@@ -7,14 +7,18 @@ public class Game : MonoBehaviour {
 
     public Player Player { get; private set; }
     private System.Random rng;
+    KingdomOverviewPanelScript KingdomOverviewPanelScript;
 
     public List<Hero> AvailableHeroes { get; private set; }
     public List<Kingdom> Locations { get; private set; }
     public List<Mission> Missions { get; private set; }
+   
 
     void Start () {
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
+        KingdomOverviewPanelScript = GetComponent<KingdomOverviewPanelScript>();
+        
         AvailableHeroes = new List<Hero>();
         Missions = new List<Mission>
         {
@@ -32,14 +36,28 @@ public class Game : MonoBehaviour {
             hero.Stats.Log();
             Player.RecruitHero(hero);
         }
+
+        Locations = new List<Kingdom>
+        {
+            new Kingdom("1",1,"1"),
+            new Kingdom("2",2,"2"),
+            new Kingdom("3",3,"3"),
+            new Kingdom("4",4,"4"),
+            new Kingdom("5",5,"5"),
+            new Kingdom("6",6,"6")
+        };
+        KingdomOverviewPanelScript.Locations = Locations;
+
+       
+     
         /*
         GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(Player);
         GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
         GetComponent<HeroRecruitmentGUI>().DisplayHeroRecruitment(this);
         */
     }
-	
-	void Update () {
+
+    void Update () {
 		
 	}
 
