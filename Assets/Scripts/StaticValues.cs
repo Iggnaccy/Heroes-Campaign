@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public static class StaticValues
@@ -10,4 +11,6 @@ public static class StaticValues
     public static int initialHeroStats = 20;
     public static int pointsPerLevel = 10;
     public static int[] ExpNeededToNextLevel = { 100, 200, 300, 500, 700, 1000, 1500, 2000, 3000, 4500, 7000, 10000, 15000, 25000, 45000 };
+
+    public static Random rng = new Random();
 }

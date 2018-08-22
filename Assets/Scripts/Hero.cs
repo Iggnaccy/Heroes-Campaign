@@ -84,6 +84,7 @@ public class Hero {
         }
     }
 
+    public int Age { get; set; }
     public int Cost { get; set; }
     public int Exp { get; set; }
     public int Level { get; set; }
@@ -96,7 +97,7 @@ public class Hero {
 
     //there should be another construcor for reading saved Heros from file/db
     public Hero(string name, HeroProfession profession, HeroRace race, HeroSex sex, 
-        HeroStats stats, int level, int cost, int salary)
+        HeroStats stats, int level, int cost, int salary, int age)
     {
         Name = name;
         Profession = profession;
@@ -107,6 +108,7 @@ public class Hero {
         Cost = cost;
         Exp = StaticValues.startingExp;
         Salary = salary;
+        Age = age;
     }
 
     public void Log()
@@ -114,4 +116,31 @@ public class Hero {
         Debug.Log(string.Format("Name: {0}, Profession: {1}, Race: {2}, Sex: {3}, Cost: {4}, " +
             "Salary: {5}, Exp: {6}, Level: {7}", Name, Profession, Race, Sex, Cost, Salary, Exp, Level));
     }
+
+    public void GainExp(int amount)
+    {
+        if (Level < StaticValues.LevelCap)
+        {
+            Exp += amount;
+            while (Exp > StaticValues.ExpNeededToNextLevel[Level])
+            {
+                Exp -= StaticValues.ExpNeededToNextLevel[Level];
+                LevelUp();
+                if (Level == StaticValues.LevelCap)
+                {
+                    Exp = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    public void LevelUp()
+    {
+        Level++;
+        HeroGenerator.LevelUpHero(this);
+        // To Do dodać zwiększanie się statystyk bohatera
+    }
+
+
 }

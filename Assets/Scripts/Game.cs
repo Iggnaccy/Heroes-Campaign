@@ -7,7 +7,6 @@ public class Game : MonoBehaviour {
 
     public Player Player { get; private set; }
     private System.Random rng;
-    KingdomOverviewPanelScript KingdomOverviewPanelScript;
 
     public List<Hero> AvailableHeroes { get; private set; }
     public List<Kingdom> Locations { get; private set; }
@@ -17,9 +16,7 @@ public class Game : MonoBehaviour {
     void Start () {
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
-        KingdomOverviewPanelScript = GetComponent<KingdomOverviewPanelScript>();
         
-        AvailableHeroes = new List<Hero>();
         Missions = new List<Mission>
         {
             new Mission("test1", "test1", 150.0, 1, 4, 24, 5, -6, Mission.MissionTypes.Escort),
@@ -28,15 +25,6 @@ public class Game : MonoBehaviour {
             new Mission("test4", "test4", 250.0, 4, 41, 241, 54, 6, Mission.MissionTypes.Extermination),
             new Mission("test5", "test5", 190.0, 2, 9, 22, 9, 26, Mission.MissionTypes.Escort)
         };
-
-        SpawnHeroes(5);
-        foreach (Hero hero in AvailableHeroes)
-        {
-            hero.Log();
-            hero.Stats.Log();
-            Player.RecruitHero(hero);
-        }
-
         Locations = new List<Kingdom>
         {
             new Kingdom("The Kingdom of Farmers",1,"This kingdom is ruled by the great farmer, Szamek.\nIf you're not a farmer, you wouldn't want to stay there for too long, as lord Szamek doesn't like people that don't farm."),
@@ -53,9 +41,22 @@ public class Game : MonoBehaviour {
         GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
         GetComponent<HeroRecruitmentGUI>().DisplayHeroRecruitment(this);
         */
-    }
+    
 
-    void Update () {
+        AvailableHeroes = new List<Hero>();
+        SpawnHeroes(5);
+        foreach (Hero hero in availableHeroes)
+        {
+            hero.Log();
+            hero.Stats.Log();
+            hero.LevelUp();
+            hero.Log();
+            hero.Stats.Log();
+        }
+
+    }
+	
+	void Update () {
 		
 	}
 
@@ -101,9 +102,17 @@ public class Game : MonoBehaviour {
             AvailableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
 
+    public void GenerateExampleKingdoms(int count)
+    {
+        for(int i=0; i<count; i++)
+        {
+            locations.Add(new Kingdom("Kingdom" + i.ToString(), i, ""));
+        }
+    }
+    
     public void ChangeChaosLevels(int BitMask, int amount)
     {
-        for(int i=0; i<32; i++)
+        for(int i=0; i<locations.Count; i++)
         {
             Locations[i].Chaos = System.Math.Max(0, Locations[i].Chaos + amount *(1&(BitMask>>i)));
         }
