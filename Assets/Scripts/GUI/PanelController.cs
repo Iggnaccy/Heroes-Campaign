@@ -16,6 +16,7 @@ public class PanelController : MonoBehaviour
     public Panels activePanel;
 
     public GameObject[] panels;
+    public GameObject Game;
 
     void Start()
     {
@@ -39,5 +40,6 @@ public class PanelController : MonoBehaviour
         }
         activePanel = (Panels)panel;
         panels[(int)activePanel].SetActive(true);
+        Game.GetComponent<Game>().ChangeDisplay(panel);
     }
 }

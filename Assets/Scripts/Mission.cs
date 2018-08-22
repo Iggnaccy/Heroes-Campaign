@@ -12,12 +12,8 @@ public class Mission
         Defence
     }
 
-
-
-
-
     //public Game GameReference;
-    //public List<Hero> ParticipatingHeroes { get; set; }
+    public List<Hero> ParticipatingHeroes { get; set; }
 
 
     public string MissionName { get; private set; }
@@ -33,11 +29,12 @@ public class Mission
     public int MissionDificulty { get; private set; }
 
     public MissionTypes MissionType { get; private set; }
+    
 
-
-
-    public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
+    public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, MissionTypes missionType)
     {
+        ParticipatingHeroes = new List<Hero>();
+
 
 
         MissionName = missionName;
