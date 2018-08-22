@@ -7,7 +7,7 @@ public class Game : MonoBehaviour {
 
     public Player Player { get; private set; }
     private System.Random rng;
-
+    public GameObject PlayerStatsPanel;
     public List<Hero> AvailableHeroes { get; private set; }
     public List<Kingdom> Locations { get; private set; }
     public List<Mission> Missions { get; private set; }
@@ -16,7 +16,7 @@ public class Game : MonoBehaviour {
     void Start () {
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
-        
+        PlayerStatsPanel.GetComponent<PlayerStatsPanel>().SetPlayer(Player);
         Missions = new List<Mission>
         {
             new Mission("test1", "test1", 150.0, 1, 4, 24, 5, -6, Mission.MissionTypes.Escort),
