@@ -34,7 +34,7 @@ public class Game : MonoBehaviour {
             new Kingdom("The Kingdom of Magazynierzy",5,"5"),
             new Kingdom("The Kingdom of Interns",6,"6")
         };
-       
+        GetComponent<KingdomOverviewPanelScript>().SetKingdomNames(Locations);
      
         /*
         GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(Player);
@@ -45,7 +45,7 @@ public class Game : MonoBehaviour {
 
         AvailableHeroes = new List<Hero>();
         SpawnHeroes(5);
-        foreach (Hero hero in availableHeroes)
+        foreach (Hero hero in AvailableHeroes)
         {
             hero.Log();
             hero.Stats.Log();
@@ -106,13 +106,13 @@ public class Game : MonoBehaviour {
     {
         for(int i=0; i<count; i++)
         {
-            locations.Add(new Kingdom("Kingdom" + i.ToString(), i, ""));
+            Locations.Add(new Kingdom("Kingdom" + i.ToString(), i, ""));
         }
     }
     
     public void ChangeChaosLevels(int BitMask, int amount)
     {
-        for(int i=0; i<locations.Count; i++)
+        for(int i=0; i<Locations.Count; i++)
         {
             Locations[i].Chaos = System.Math.Max(0, Locations[i].Chaos + amount *(1&(BitMask>>i)));
         }

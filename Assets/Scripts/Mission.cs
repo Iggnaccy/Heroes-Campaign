@@ -47,7 +47,7 @@ public class Mission
         GoldEarned = goldEarned;
         ExpEarned = expEarned;
         FameEarned = fameEarned;
-        MissionDificulty = missionDificulty;
+        //MissionDificulty = missionDificulty;
 
         MissionType = missionType;
     }

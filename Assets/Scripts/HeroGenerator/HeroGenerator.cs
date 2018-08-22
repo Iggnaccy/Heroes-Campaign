@@ -126,7 +126,7 @@ public class HeroGenerator {
     }
 
     public static void LevelUpHero(Hero h) {
-        Hero.HeroStats gainedSkills = generateStats(h.Profession, h.Race, h.Sex, h.Age, 1);
+        Hero.HeroStats gainedSkills = GenerateStats(h.Profession, h.Race, h.Sex, h.Age, 1);
         h.Stats += gainedSkills;
     }
 
