@@ -14,6 +14,16 @@ public class Mission
 
 
 
+    public enum MissionStates
+    {
+        Available,
+        Active,
+        Complited,
+        Failed
+    }
+
+
+
 
 
     public Game GameReference;
@@ -34,12 +44,13 @@ public class Mission
     public int MissionDificulty { get; private set; }
 
     public MissionTypes MissionType { get; private set; }
+    public MissionStates MissionState { get; private set; }
 
 
 
-    public Mission(Game gameReference,   string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
+    public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
     {
-        GameReference = gameReference;
+        GameReference = GameObject.Find("Game").GetComponent<Game>();
         ParticipatingHeroes = new List<Hero>();
 
         MissionName = missionName;
@@ -56,12 +67,14 @@ public class Mission
         MissionDificulty = missionDificulty;
 
         MissionType = missionType;
+        MissionState = MissionStates.Available;
     }
 
 
     public void SetHeroes(List<Hero> participatingHeroes)
     {
         ParticipatingHeroes = participatingHeroes;
+        MissionState = MissionStates.Active;
     }
 
     public void Victory()
@@ -77,15 +90,15 @@ public class Mission
         //To Do zwracanie poiwadomienia o ukończeniu misji
 
         Debug.Log("Mission Acomplished");
-
+        MissionState = MissionStates.Complited;
     }
 
-    public Mission(Game gameReference)
+    public Mission()
     {
-        GameReference = gameReference;
+        GameReference = GameObject.Find("Game").GetComponent<Game>();
         MissionDificulty = Random.Range(1, 10);
 
-        MissionTime = Random.Range(600.0f, 1200.0f);
+        MissionTime = Random.Range(10, 20)*60;
         RemainingTime = MissionTime;
 
         int tmp = GameReference.getNumberOfKingdoms();
@@ -97,6 +110,7 @@ public class Mission
         FameEarned = 10 * MissionDificulty;
 
         MissionType = Utils.generateRandomEnum<MissionTypes>(new System.Random());
+        MissionState = MissionStates.Available;
 
         Debug.Log(string.Format("MissionTime {0}, Kingdoms {1}, ChaosReduction {2}, GoldEarned {3}, ExpEarned {4}, FameEarned {5}, MissionDificulty {6} MissionType {7}",
             MissionTime, Kingdoms, ChaosReduction, GoldEarned, ExpEarned, FameEarned, MissionDificulty, MissionType));

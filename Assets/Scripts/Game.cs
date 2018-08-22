@@ -31,7 +31,7 @@ public class Game : MonoBehaviour {
 
         activeMission = new List<Mission>();
         //Przykład jak dodawać nowe misje, potem się usunie
-        Mission example = new Mission(this);
+        Mission example = new Mission();
         example.SetHeroes(availableHeroes);
         activeMission.Add(example);
 
