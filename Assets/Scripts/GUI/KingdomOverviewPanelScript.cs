@@ -7,24 +7,14 @@ using UnityEngine.UI;
 
 public class KingdomOverviewPanelScript : MonoBehaviour
 {
-    public GameObject[] KingdomOverviewPanelStats = new GameObject[6];
-    public List<Kingdom> Locations { get; set; } = new List<Kingdom> { };
- 
-    void Start()
-    {
-        for(int i=0;i<6;i++)
-        { 
-            Text my_text = KingdomOverviewPanelStats[i].GetComponent<Text>();
-            my_text.text = Locations[i].Chaos + Environment.NewLine + Locations[i].Description;
-        }
-    }
+    public Text[] KingdomOverviewPanelStats;
 
-    void Update()
+    public void UpdatePanels(List<Kingdom> kingdoms)
     {
-        for (int i = 0; i < 6; i++)
+        for(int i = 0; i < kingdoms.Count; i++)
         {
-            Text my_text = KingdomOverviewPanelStats[i].GetComponent<Text>();
-            my_text.text = Locations[i].Chaos + Environment.NewLine + Locations[i].Description;
+            KingdomOverviewPanelStats[i].text = $"{kingdoms[i].Description}\n" +
+                $"Chaos: {kingdoms[i].Chaos}";
         }
     }
 }

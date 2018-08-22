@@ -39,15 +39,13 @@ public class Game : MonoBehaviour {
 
         Locations = new List<Kingdom>
         {
-            new Kingdom("1",1,"1"),
-            new Kingdom("2",2,"2"),
-            new Kingdom("3",3,"3"),
-            new Kingdom("4",4,"4"),
-            new Kingdom("5",5,"5"),
-            new Kingdom("6",6,"6")
+            new Kingdom("The Kingdom of Farmers",1,"This kingdom is ruled by the great farmer, Szamek.\nIf you're not a farmer, you wouldn't want to stay there for too long, as lord Szamek doesn't like people that don't farm."),
+            new Kingdom("The Kingdom of Bankers",2,"2"),
+            new Kingdom("The Kingdom of Smiths",3,"3"),
+            new Kingdom("The Kingdom of Nokia",4,"4"),
+            new Kingdom("The Kingdom of Magazynierzy",5,"5"),
+            new Kingdom("The Kingdom of Interns",6,"6")
         };
-        KingdomOverviewPanelScript.Locations = Locations;
-
        
      
         /*
@@ -66,6 +64,7 @@ public class Game : MonoBehaviour {
         var gm = GetComponent<GuildManagementGUIDisplay>();
         var ma = GetComponent<MissionAssignmentGUI>();
         var hr = GetComponent<HeroRecruitmentGUI>();
+        var ko = GetComponent<KingdomOverviewPanelScript>();
         switch(i)
         {
             case 0:
@@ -89,6 +88,7 @@ public class Game : MonoBehaviour {
                 ma.Clear();
                 break;
             case 4:
+                ko.UpdatePanels(Locations);
                 gm.Clear();
                 hr.Clear();
                 ma.Clear();
