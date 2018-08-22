@@ -22,11 +22,11 @@ public class AbilityCheck {
     {
         double ScoreToBeat=TestDificulty;
 
-        ScoreToBeat -= TestedHero.Stats.agility * StatParticipation[0];
-        ScoreToBeat -= TestedHero.Stats.health * StatParticipation[1];
-        ScoreToBeat -= TestedHero.Stats.intelligence * StatParticipation[2];
-        ScoreToBeat -= TestedHero.Stats.mana * StatParticipation[3];
-        ScoreToBeat -= TestedHero.Stats.strength * StatParticipation[4];
+        ScoreToBeat -= TestedHero.Stats.Agility * StatParticipation[0];
+        ScoreToBeat -= TestedHero.Stats.Health * StatParticipation[1];
+        ScoreToBeat -= TestedHero.Stats.Intelligence * StatParticipation[2];
+        ScoreToBeat -= TestedHero.Stats.Mana * StatParticipation[3];
+        ScoreToBeat -= TestedHero.Stats.Strength * StatParticipation[4];
 
         ScoreToBeat -= RaceParticipation[(int)(TestedHero.Race)];
 

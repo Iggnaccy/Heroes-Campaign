@@ -28,9 +28,9 @@ public class OngoingMission : MonoBehaviour
 
     private void Victory()
     {
-        GameReference.changeChaosLevels(SelectedMission.Kingdoms, -SelectedMission.ChaosReduction);
-        GameReference.changeFame(SelectedMission.FameEarned);
-        GameReference.changeGold(SelectedMission.GoldEarned);
+        GameReference.ChangeChaosLevels(SelectedMission.Kingdoms, -SelectedMission.ChaosReduction);
+        GameReference.ChangeFame(SelectedMission.FameEarned);
+        GameReference.ChangeGold(SelectedMission.GoldEarned);
 
         for(int i=0; i<ParticipatingHeroes.Count; i++)
         {

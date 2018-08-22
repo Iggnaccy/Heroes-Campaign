@@ -660,7 +660,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: bbc3c40c-fb91-4a5b-975c-b5081901ef8a
   projectName: HeroesCampaign
   organizationId: ignacy-lapicki
