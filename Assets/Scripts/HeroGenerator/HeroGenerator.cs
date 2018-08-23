@@ -9,11 +9,11 @@ public class HeroGenerator {
 
     public static Hero GenerateHero(Random random) {
         rng = random;
-        Hero.HeroProfession profession = generateProfession();
-        Hero.HeroRace race = generateRace();
-        Hero.HeroSex sex = generateSex();
-        int age = generateAge(race);
-        int level = generateLevel();
+        Hero.HeroProfession profession = GenerateProfession();
+        Hero.HeroRace race = GenerateRace();
+        Hero.HeroSex sex = GenerateSex();
+        int age = GenerateAge(race);
+        int level = GenerateLevel();
         Hero.HeroStats stats = generateStats(profession, race, sex, age, level);
         string name = generateName(race, sex);
         int cost = 100;
@@ -21,26 +21,26 @@ public class HeroGenerator {
         return new Hero(name, profession, race, sex, stats, level, cost, salary, age);
     }
 
-    private static Hero.HeroProfession generateProfession()
+    private static Hero.HeroProfession GenerateProfession()
     {
         return Utils.generateRandomEnum<Hero.HeroProfession>(rng);
     }
 
-    private static Hero.HeroRace generateRace()
+    private static Hero.HeroRace GenerateRace()
     {
         return Utils.generateRandomEnum<Hero.HeroRace>(rng);
     }
 
-    private static Hero.HeroSex generateSex()
+    private static Hero.HeroSex GenerateSex()
     {
         return Utils.generateRandomEnum<Hero.HeroSex>(rng);
     }
 
-    private static int generateAge(Hero.HeroRace race) {
+    private static int GenerateAge(Hero.HeroRace race) {
         return rng.Next(15, 70);
     }
 
-    private static int generateLevel() {
+    private static int GenerateLevel() {
         return rng.Next(StaticValues.startingLevel, StaticValues.ExpNeededToNextLevel.GetLength(0)+1);
     }
 
@@ -85,14 +85,14 @@ public class HeroGenerator {
         tickets.ClampToZero();
 
         List<KeyValuePair<int, Hero.HeroStats>> helper = new List<KeyValuePair<int, Hero.HeroStats>> {
-            new KeyValuePair<int, Hero.HeroStats>(tickets.agility,      new Hero.HeroStats(1,0,0,0,0)),
-            new KeyValuePair<int, Hero.HeroStats>(tickets.health,       new Hero.HeroStats(0,1,0,0,0)),
-            new KeyValuePair<int, Hero.HeroStats>(tickets.intelligence, new Hero.HeroStats(0,0,1,0,0)),
-            new KeyValuePair<int, Hero.HeroStats>(tickets.mana,         new Hero.HeroStats(0,0,0,1,0)),
-            new KeyValuePair<int, Hero.HeroStats>(tickets.strength,     new Hero.HeroStats(0,0,0,0,1)),
+            new KeyValuePair<int, Hero.HeroStats>(tickets.Agility,      new Hero.HeroStats(1,0,0,0,0)),
+            new KeyValuePair<int, Hero.HeroStats>(tickets.Health,       new Hero.HeroStats(0,1,0,0,0)),
+            new KeyValuePair<int, Hero.HeroStats>(tickets.Intelligence, new Hero.HeroStats(0,0,1,0,0)),
+            new KeyValuePair<int, Hero.HeroStats>(tickets.Mana,         new Hero.HeroStats(0,0,0,1,0)),
+            new KeyValuePair<int, Hero.HeroStats>(tickets.Strength,     new Hero.HeroStats(0,0,0,0,1)),
         };
 
-        Assert.IsTrue(helper.Count == Hero.HeroStats.paramsCount());
+        Assert.IsTrue(helper.Count == Hero.HeroStats.ParamsCount());
         int total = 0;
         for (int i = 0; i < helper.Count; i++)
             total += helper[i].Key;

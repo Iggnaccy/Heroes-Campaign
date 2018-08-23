@@ -18,7 +18,7 @@ public class Mission
     {
         Available,
         Active,
-        Complited,
+        Completed,
         Failed
     }
 
@@ -90,7 +90,7 @@ public class Mission
         //To Do zwracanie poiwadomienia o ukończeniu misji
 
         Debug.Log("Mission Acomplished");
-        MissionState = MissionStates.Complited;
+        MissionState = MissionStates.Completed;
     }
 
     public Mission()
