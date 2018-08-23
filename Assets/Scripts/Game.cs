@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
-    public Player Player;
+    public Player Player { get; private set; }
     private System.Random rng;
 
-    private List<Hero> AvailableHeroes;
-    private List<Kingdom> Locations;
-    private List<Mission> ActiveMission;
-    private List<Mission> CompletedMission;
+    public List<Hero> AvailableHeroes { get; private set; }
+    public List<Kingdom> Locations { get; private set; }
+    public List<Mission> ActiveMission { get; private set; }
+    public List<Mission> CompletedMission { get; private set; }
 
     void Start () {
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
         AvailableHeroes = new List<Hero>();
-        spawnHeroes(5);
+        SpawnHeroes(5);
         foreach (Hero hero in AvailableHeroes)
         {
             hero.Log();
@@ -29,17 +29,15 @@ public class Game : MonoBehaviour {
 
         Locations = new List<Kingdom>();
 
-        ActiveMission = new List<Mission>();
+        ActiveMission = new List<Mission>
+        {
+            new Mission("test1", "test1", 150.0, 1, 4, 24, 5, -6, 5, Mission.MissionTypes.Escort),
+            new Mission("test2", "test2", 130.0, 16, 2, 92, 15, 15, 8, Mission.MissionTypes.Exploration),
+            new Mission("test3", "test3", 152.0, 8, 48, 21, 35, 7, 1, Mission.MissionTypes.Defence),
+            new Mission("test4", "test4", 250.0, 4, 41, 241, 54, 6, 0, Mission.MissionTypes.Extermination),
+            new Mission("test5", "test5", 190.0, 2, 9, 22, 9, 26, 15, Mission.MissionTypes.Escort)
+        };
         CompletedMission = new List<Mission>();
-
-        //Przykład jak dodawać nowe misje, potem się usunie
-
-
-        /*Mission example = new Mission();
-        example.SetHeroes(availableHeroes);
-        activeMission.Add(example);*/
-
-        
     }
 
 	void Update () {
@@ -57,7 +55,7 @@ public class Game : MonoBehaviour {
 		
 	}
 
-    public void spawnHeroes(int count) {
+    public void SpawnHeroes(int count) {
         for(int i = 0; i < count; i++)
             AvailableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
@@ -67,7 +65,7 @@ public class Game : MonoBehaviour {
 
 
 
-    public void changeChaosLevels(int BitMask, int amount)
+    public void ChangeChaosLevels(int BitMask, int amount)
     {
         for(int i=0; i<Locations.Count; i++)
         {
@@ -75,17 +73,17 @@ public class Game : MonoBehaviour {
         }
     }
 
-    public void changeFame(int amount)
+    public void ChangeFame(int amount)
     {
         Player.Fame += amount;
     }
 
-    public void changeGold(int amount)
+    public void ChangeGold(int amount)
     {
         Player.Gold += amount;
     }
 
-    public int getNumberOfKingdoms()
+    public int GetNumberOfKingdoms()
     {
         return Locations.Count;
     }

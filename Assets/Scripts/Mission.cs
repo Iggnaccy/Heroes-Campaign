@@ -21,12 +21,7 @@ public class Mission
         Completed,
         Failed
     }
-
-
-
-
-
-    public Game GameReference;
+    
     public List<Hero> ParticipatingHeroes { get; set; }
 
 
@@ -50,7 +45,6 @@ public class Mission
 
     public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
     {
-        GameReference = GameObject.Find("Game").GetComponent<Game>();
         ParticipatingHeroes = new List<Hero>();
 
         MissionName = missionName;
@@ -79,9 +73,6 @@ public class Mission
 
     public void Victory()
     {
-        GameReference.changeChaosLevels(Kingdoms, -ChaosReduction);
-        GameReference.changeFame(FameEarned);
-        GameReference.changeGold(GoldEarned);
 
         for (int i = 0; i < ParticipatingHeroes.Count; i++)
         {
@@ -95,14 +86,12 @@ public class Mission
 
     public Mission()
     {
-        GameReference = GameObject.Find("Game").GetComponent<Game>();
         MissionDificulty = Random.Range(1, 10);
 
         MissionTime = Random.Range(10, 20)*60;
         RemainingTime = MissionTime;
 
-        int tmp = GameReference.getNumberOfKingdoms();
-        Kingdoms = Random.Range(1, (1 << tmp) - 1);
+        Kingdoms = Random.Range(1, (1 << 6) - 1);
 
         ChaosReduction = MissionDificulty;
         GoldEarned = 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
