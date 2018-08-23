@@ -10,8 +10,11 @@ public class Game : MonoBehaviour {
     public GameObject PlayerStatsPanel;
     public List<Hero> AvailableHeroes { get; private set; }
     public List<Kingdom> Locations { get; private set; }
+
     public List<Mission> Missions { get; private set; }
-   
+    public List<Mission> ActiveMission { get; private set; }
+    public List<Mission> CompletedMission { get; private set; }
+
 
     void Start () {
         rng = new System.Random();
@@ -19,12 +22,14 @@ public class Game : MonoBehaviour {
         PlayerStatsPanel.GetComponent<PlayerStatsPanel>().SetPlayer(Player);
         Missions = new List<Mission>
         {
-            new Mission("test1", "test1", 150.0, 1, 4, 24, 5, -6, Mission.MissionTypes.Escort),
-            new Mission("test2", "test2", 130.0, 16, 2, 92, 15, 15, Mission.MissionTypes.Exploration),
-            new Mission("test3", "test3", 152.0, 8, 48, 21, 35, 7, Mission.MissionTypes.Defence),
-            new Mission("test4", "test4", 250.0, 4, 41, 241, 54, 6, Mission.MissionTypes.Extermination),
-            new Mission("test5", "test5", 190.0, 2, 9, 22, 9, 26, Mission.MissionTypes.Escort)
+            new Mission(),
+            new Mission(),
+            new Mission(),
+            new Mission(),
+            new Mission()
         };
+        ActiveMission = new List<Mission>();
+        CompletedMission = new List<Mission>();
         Locations = new List<Kingdom>
         {
             new Kingdom("The Kingdom of Farmers",1,"This kingdom is ruled by the great farmer, Szamek.\nIf you're not a farmer, you wouldn't want to stay there for too long, as lord Szamek doesn't like people that don't farm."),
@@ -57,8 +62,19 @@ public class Game : MonoBehaviour {
     }
 	
 	void Update () {
-		
-	}
+        for (int i = 0; i < ActiveMission.Count; i++)
+        {
+            ActiveMission[i].RemainingTime -= Time.deltaTime;
+            if (ActiveMission[i].RemainingTime <= 0)
+            {
+                ActiveMission[i].Victory();
+                CompletedMission.Add(ActiveMission[i]);
+                ActiveMission.RemoveAt(i);
+                i--;
+            }
+        }
+
+    }
 
     public void ChangeDisplay(int i)
     {
@@ -102,14 +118,7 @@ public class Game : MonoBehaviour {
             AvailableHeroes.Add(HeroGenerator.GenerateHero(rng));
     }
 
-    public void GenerateExampleKingdoms(int count)
-    {
-        for(int i=0; i<count; i++)
-        {
-            Locations.Add(new Kingdom("Kingdom" + i.ToString(), i, ""));
-        }
-    }
-    
+  
     public void ChangeChaosLevels(int BitMask, int amount)
     {
         for(int i=0; i<Locations.Count; i++)
@@ -128,5 +137,9 @@ public class Game : MonoBehaviour {
         Player.Gold += amount;
     }
 
+    public int GetNumberOfKingdoms()
+    {
+        return Locations.Count;
+    }
 
 }
