@@ -103,6 +103,7 @@ public class Mission
 
         //int tmp = GameReference.GetNumberOfKingdoms();
         Kingdoms = Random.Range(1, (1 << 6) - 1);
+        ParticipatingHeroes = new List<Hero>();
 
         ChaosReduction = MissionDificulty;
         GoldEarned = 10 * Random.Range(1 << (MissionDificulty - 1), 1 << (MissionDificulty));
