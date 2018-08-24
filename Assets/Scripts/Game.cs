@@ -68,7 +68,6 @@ public class Game : MonoBehaviour {
 	
 	void Update ()
     {
-        
         for (int i = 0; i < ActiveMission.Count; i++)
         {
             ActiveMission[i].RemainingTime -= Time.deltaTime;
