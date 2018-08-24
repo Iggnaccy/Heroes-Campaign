@@ -37,6 +37,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
             GameObject heroButton = Instantiate(ph.MissionAssignmentHeroButton);
             heroButton.transform.SetParent(HeroPanel, false);
             heroButton.transform.localPosition = new Vector3((heroButton.transform.localPosition.x + (i * (heroButton.GetComponent<RectTransform>().rect.width + 2))), heroButton.transform.localPosition.y, heroButton.transform.localPosition.z);
+            heroButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = game.Player.Heroes[i].Name;
             int id = i;
             heroButton.GetComponent<Button>().onClick.AddListener(() =>
             {
