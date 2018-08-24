@@ -8,6 +8,8 @@ public class Game : MonoBehaviour {
     public Player Player { get; private set; }
     private System.Random rng;
     public GameObject PlayerStatsPanel;
+    public GameObject EndingPanel;
+
     public List<Hero> AvailableHeroes { get; private set; }
     public List<Kingdom> Locations { get; private set; }
 
@@ -15,8 +17,9 @@ public class Game : MonoBehaviour {
     public List<Mission> ActiveMission { get; private set; }
     public List<Mission> CompletedMission { get; private set; }
 
-
-    void Start () {
+    void StartGame()
+    {
+        EndingPanel.SetActive(false);
         rng = new System.Random();
         Player = new Player("test", 0, 1000);
         PlayerStatsPanel.GetComponent<PlayerStatsPanel>().SetPlayer(Player);
@@ -40,13 +43,12 @@ public class Game : MonoBehaviour {
             new Kingdom("The Kingdom of Interns",6,"6")
         };
         GetComponent<KingdomOverviewPanelScript>().SetKingdomNames(Locations);
-     
+
         /*
         GetComponent<GuildManagementGUIDisplay>().DisplayHeroButtons(Player);
         GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
         GetComponent<HeroRecruitmentGUI>().DisplayHeroRecruitment(this);
         */
-    
 
         AvailableHeroes = new List<Hero>();
         SpawnHeroes(5);
@@ -58,10 +60,14 @@ public class Game : MonoBehaviour {
             hero.Log();
             hero.Stats.Log();
         }
-
+    }
+    void Start()
+    {
+        StartGame();
     }
 	
-	void Update () {
+	void Update ()
+    {
         for (int i = 0; i < ActiveMission.Count; i++)
         {
             ActiveMission[i].RemainingTime -= Time.deltaTime;
@@ -72,6 +78,12 @@ public class Game : MonoBehaviour {
                 ActiveMission.RemoveAt(i);
                 i--;
             }
+        }
+        foreach (Kingdom kingdom in Locations)
+            kingdom.CheckIfAlive();
+        if (Kingdom.ChaosOverwhelming >= StaticValues.MaxChaosOverwhelming)
+        {
+            GameOver();
         }
 
     }
@@ -142,4 +154,12 @@ public class Game : MonoBehaviour {
         return Locations.Count;
     }
 
+    public void GameOver()
+    {
+        foreach(Transform t in EndingPanel.transform.parent)
+        {
+            t.gameObject.SetActive(false);
+        }
+        EndingPanel.SetActive(true);
+    }
 }
