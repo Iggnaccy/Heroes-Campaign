@@ -137,9 +137,9 @@ public class Game : MonoBehaviour {
         Player.Gold += amount;
     }
 
-    public int GetNumberOfKingdoms()
+   /* public int GetNumberOfKingdoms()
     {
         return Locations.Count;
-    }
+    }*/
 
 }

@@ -65,6 +65,8 @@ public class HeroRecruitmentGUI : MonoBehaviour {
              imienia,
              małego opisu bohatera.
              */
+            HeroButton.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Material for a great hero";
+            HeroButton.transform.GetChild(2).gameObject.GetComponent<Text>().text=AvailableHeroes[i].Name;
             int id = i;
             buttons.Add(HeroButton.GetComponent<Button>());
             buttons[id].onClick.AddListener(() =>
