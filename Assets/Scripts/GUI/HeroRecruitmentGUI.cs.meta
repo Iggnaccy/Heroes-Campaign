@@ -3,7 +3,13 @@ guid: 8da3b90507f191049a0f5bb7b64ccb75
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HeroPanel: {instanceID: 0}
+  - CostText: {instanceID: 0}
+  - HeroDesc: {instanceID: 0}
+  - Confirm: {instanceID: 0}
+  - Cancel: {instanceID: 0}
+  - Placeholder: {fileID: 21300000, guid: 9cf250588b19de94994142dd0bfc6f86, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

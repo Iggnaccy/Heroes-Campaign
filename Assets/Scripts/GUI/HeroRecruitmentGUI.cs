@@ -65,6 +65,7 @@ public class HeroRecruitmentGUI : MonoBehaviour {
              imienia,
              małego opisu bohatera.
              */
+            HeroButton.transform.GetChild(0).gameObject.GetComponent<Image>().sprite=ph.PortraitHolder[(long)AvailableHeroes[i].Sex, (long)AvailableHeroes[i].Race, (long)AvailableHeroes[i].Profession];
             HeroButton.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Material for a great hero";
             HeroButton.transform.GetChild(2).gameObject.GetComponent<Text>().text=AvailableHeroes[i].Name;
             int id = i;
@@ -96,6 +97,7 @@ public class HeroRecruitmentGUI : MonoBehaviour {
              imienia,
              małego opisu bohatera.
              */
+            HeroButton.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = ph.PortraitHolder[(long)AvailableHeroes[i].Sex, (long)AvailableHeroes[i].Race, (long)AvailableHeroes[i].Profession];
             HeroButton.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Material for a great hero";
             HeroButton.transform.GetChild(2).gameObject.GetComponent<Text>().text = AvailableHeroes[i].Name;
             int id = i;
