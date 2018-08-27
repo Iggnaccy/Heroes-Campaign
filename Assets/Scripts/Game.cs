@@ -21,7 +21,7 @@ public class Game : MonoBehaviour {
     {
         EndingPanel.SetActive(false);
         rng = new System.Random();
-        Player = new Player("test", 0, 1000);
+        Player = new Player("test", 0, StaticValues.InitialGold);
         PlayerStatsPanel.GetComponent<PlayerStatsPanel>().SetPlayer(Player);
         Missions = new List<Mission>
         {
@@ -68,7 +68,6 @@ public class Game : MonoBehaviour {
 	
 	void Update ()
     {
-        
         for (int i = 0; i < ActiveMission.Count; i++)
         {
             ActiveMission[i].RemainingTime -= Time.deltaTime;
@@ -86,7 +85,7 @@ public class Game : MonoBehaviour {
         {
             GameOver();
         }
-
+        Player.Update();
     }
 
     public void ChangeDisplay(int i)

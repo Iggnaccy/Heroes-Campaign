@@ -11,9 +11,12 @@ public static class StaticValues
     public static int startingLevel = 0;
     public static int LevelCap = 15;
     public static int initialHeroStats = 20;
+    public static int InitialGold = 10000;
     public static int pointsPerLevel = 10;
     public static int[] ExpNeededToNextLevel = { 100, 200, 300, 500, 700, 1000, 1500, 2000, 3000, 4500, 7000, 10000, 15000, 25000, 45000 };
     public static int NumberOfKIngdoms = 6;
+    public static int SalaryIntervalInSeconds = 1;
+    public static int SalaryDescriptionIntervalInSeconds = 10 * 60;
 
     public static Random rng = new Random();
 }

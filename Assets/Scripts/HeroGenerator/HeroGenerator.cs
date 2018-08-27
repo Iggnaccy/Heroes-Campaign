@@ -18,8 +18,9 @@ public class HeroGenerator {
         int level = GenerateLevel();
         Hero.HeroStats stats = GenerateStats(profession, race, sex, age, level);
         string name = GenerateName(race, sex);
-        int cost = 100;
-        int salary = 20;
+        KeyValuePair<int, int> costs = generateCosts(stats, level);
+        int cost = costs.Key;
+        int salary = costs.Value;
         return new Hero(name, profession, race, sex, stats, level, cost, salary, age);
     }
 
@@ -127,6 +128,10 @@ public class HeroGenerator {
 
     public static void LevelUpHero(Hero h) {
         Hero.HeroStats gainedSkills = GenerateStats(h.Profession, h.Race, h.Sex, h.Age, 1);
+        h.Level++;
+        KeyValuePair<int, int> costs = generateCosts(gainedSkills, 1);
+        h.Cost += costs.Key;
+        h.Salary += costs.Value;
         h.Stats += gainedSkills;
     }
 
@@ -186,6 +191,10 @@ public class HeroGenerator {
             name = Utils.markowNameGenerator(listCandidates[StaticValues.rng.Next() % listCandidates.Count], 2, 3, 10);
 
         return name;
-        // return Utils.markowNameGenerator(nordicMaleNames, 2, 3, 10);
+    }
+
+    //cost, salary
+    private static KeyValuePair<int,int> generateCosts(Hero.HeroStats stats, int level) {
+        return new KeyValuePair<int, int>((level+1)*100+rng.Next()%100-50, 6*(level+1)+rng.Next()%6-3);
     }
 }
