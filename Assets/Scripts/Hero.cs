@@ -137,9 +137,15 @@ public class Hero {
         }
     }
 
+    //To be implemented
+    //important note: https://github.com/Iggnaccy/Heroes-Campaign/issues/16
+    public void Fire()
+    {
+        Debug.Log($"Hero {Name} is fired!");
+    }
+
     public void LevelUp()
     {
-        Level++;
         HeroGenerator.LevelUpHero(this);
         // To Do dodać zwiększanie się statystyk bohatera
     }

@@ -20,7 +20,7 @@ public class PlayerStatsPanel : MonoBehaviour
         if (player != null)
         {
             PlayerStatsPanelFame.text = player.Fame.ToString();
-            PlayerStatsPanelGold.text = player.Gold.ToString();
+            PlayerStatsPanelGold.text = ((int)Math.Round(player.Gold)).ToString();
         }
         
     }
