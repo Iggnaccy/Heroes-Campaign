@@ -94,6 +94,7 @@ public class Hero {
     public HeroSex Sex { get; private set; }
     public HeroStats Stats {get; set;}
     public int Salary { get; set; }
+    public Sprite Portrait { get; set; }
 
     //there should be another construcor for reading saved Heros from file/db
     public Hero(string name, HeroProfession profession, HeroRace race, HeroSex sex, 
@@ -109,6 +110,7 @@ public class Hero {
         Exp = StaticValues.startingExp;
         Salary = salary;
         Age = age;
+        Portrait = Cache.GetPortrait(Sex, Race, Profession);
     }
 
     public void Log()
