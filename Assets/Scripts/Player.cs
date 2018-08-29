@@ -22,7 +22,7 @@ public class Player {
 
     private void PaySalary()
     {
-        float delta = Time.deltaTime;
+        float delta = TimeManager.DeltaTime;
         lastSalaryTime += delta;
         if (lastSalaryTime > StaticValues.SalaryIntervalInSeconds) {
             lastSalaryTime = 0;
