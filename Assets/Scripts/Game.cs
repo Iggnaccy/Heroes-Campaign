@@ -69,9 +69,10 @@ public class Game : MonoBehaviour {
 	
 	void Update ()
     {
+        TimeManager.Update();
         for (int i = 0; i < ActiveMission.Count; i++)
         {
-            ActiveMission[i].RemainingTime -= Time.deltaTime;
+            ActiveMission[i].RemainingTime -= TimeManager.DeltaTime;
             if (ActiveMission[i].RemainingTime <= 0)
             {
                 ActiveMission[i].Victory();

@@ -40,7 +40,7 @@ public class Event : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        probability += 0.01 * Time.deltaTime;
+        probability += 0.01 * TimeManager.DeltaTime;
         bool t = false;
         if (probability >= random.NextDouble() && SpecialMission != null)
         {

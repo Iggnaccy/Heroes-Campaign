@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Utils {
+public static class Utils {
     public static int getEnumLength<T>()
     {
         return ((T[])Enum.GetValues(typeof(T))).Length;
