@@ -24,7 +24,7 @@ public class Popup {
     {
         PopupText = text;
         ButtonDescription =new string[] { buttonDescription};
-        ButtonEffects = new List<UnityAction>(new UnityAction[] { DoNothing });
+        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
         Background = background;
         ParentObject = parentObject;
     }
@@ -39,7 +39,6 @@ public class Popup {
         {
             GameObject PopupButton = MonoBehaviour.Instantiate(TemporaryPointer.Button);
             PopupButton.transform.SetParent(ParentObject.transform, false);
-            PopupButton.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             PopupButton.transform.localPosition = new Vector3(PopupButton.transform.localPosition.x, PopupButton.transform.localPosition.y - (i * (PopupButton.GetComponent<RectTransform>().rect.height + 2)));
 
             PopupButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = ButtonDescription[i];

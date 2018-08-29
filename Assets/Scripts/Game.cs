@@ -32,7 +32,7 @@ public class Game : MonoBehaviour {
             new Mission()
         };
         ActiveMission = new List<Mission>();
-        ActiveMission.Add(new Mission());
+        //ActiveMission.Add(new Mission());
         CompletedMission = new List<Mission>();
         Locations = new List<Kingdom>
         {
@@ -163,4 +163,13 @@ public class Game : MonoBehaviour {
         }
         EndingPanel.SetActive(true);
     }
+
+    public void BeginMission(List<Hero> assignedHeroes, Mission currentMision)
+    {
+        currentMision.SetHeroes(assignedHeroes);
+        ActiveMission.Add(currentMision);
+        Missions.Remove(currentMision);
+    }
+
+
 }

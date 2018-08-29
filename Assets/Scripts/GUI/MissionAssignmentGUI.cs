@@ -11,11 +11,13 @@ public class MissionAssignmentGUI : MonoBehaviour {
     PrefabHolder ph;
 
     int activeMission;
+    private List<Hero> ChosenHeores;
 
 	// Use this for initialization
 	void Awake () {
         ph = GameObject.FindGameObjectWithTag("PrefabHolder").GetComponent<PrefabHolder>();
         activeMission = -1;
+        ChosenHeores = new List<Hero>();
 	}
 	
     public void DisplayMissionPanel(Game game)
@@ -41,9 +43,12 @@ public class MissionAssignmentGUI : MonoBehaviour {
             int id = i;
             heroButton.GetComponent<Button>().onClick.AddListener(() =>
             {
-                if ((activeMission < 0 || activeMission >= game.Missions.Count) || game.Missions[activeMission].ParticipatingHeroes.Contains(game.Player.Heroes[id])) return;
-                game.Missions[activeMission].ParticipatingHeroes.Add(game.Player.Heroes[id]);
-                Debug.Log($"Added hero {id}: {game.Player.Heroes[id].Name} to mission {activeMission}: {game.Missions[activeMission].MissionName}");
+                if ((activeMission < 0 || activeMission >= game.Missions.Count) ) return;
+                if (!ChosenHeores.Contains(game.Player.Heroes[id]))
+                    ChosenHeores.Add(game.Player.Heroes[id]);
+                else
+                    ChosenHeores.Remove(game.Player.Heroes[id]);
+                //Debug.Log($"Added hero {id}: {game.Player.Heroes[id].Name} to mission {activeMission}: {game.Missions[activeMission].MissionName}");
                 UpdateDisplayMission(game);
             });
         }
@@ -56,7 +61,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
             $"{m.MissionDescription}\n\n" +
             $"Participating heroes:\n";
         string heroes = "";
-        foreach(Hero h in m.ParticipatingHeroes)
+        foreach(Hero h in ChosenHeores)
         {
             if (heroes.Length > 0)
                 heroes += $", {h.Name} ({h.Profession})";
