@@ -50,7 +50,7 @@ public class Mission
 
     public Mission(string missionName, string missionDescription, double missionTime, int kingdoms, int chaosReduction, int goldEarned, int expEarned, int fameEarned, int missionDificulty, MissionTypes missionType)
     {
-        GameReference = GameObject.Find("Game").GetComponent<Game>();
+        GameReference = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
         ParticipatingHeroes = new List<Hero>();
 
         MissionName = missionName;
@@ -91,14 +91,17 @@ public class Mission
 
         Debug.Log("Mission Acomplished");
         MissionState = MissionStates.Completed;
+        GameObject.FindGameObjectWithTag("PopupHolder").GetComponent<PopupHolder>().MakeSimplePopup("Mission " + MissionName + " Acomplished", "Worrisome");
     }
 
     public Mission()
     {
-        GameReference = GameObject.Find("Game").GetComponent<Game>();
+        GameReference  = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
+        MissionName = "";
+        MissionDescription = "";
         MissionDificulty = Random.Range(1, 10);
 
-        MissionTime = Random.Range(10, 20) * 60;
+        MissionTime = Random.Range(5, 10) * 0.5;
         RemainingTime = MissionTime;
 
         int tmp = StaticValues.NumberOfKIngdoms;

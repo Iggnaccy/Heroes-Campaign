@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PrefabHolder
   - Slider
+  - PopupHolder
   layers:
   - Default
   - TransparentFX

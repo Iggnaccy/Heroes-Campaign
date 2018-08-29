@@ -32,6 +32,7 @@ public class Game : MonoBehaviour {
             new Mission()
         };
         ActiveMission = new List<Mission>();
+        ActiveMission.Add(new Mission());
         CompletedMission = new List<Mission>();
         Locations = new List<Kingdom>
         {
