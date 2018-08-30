@@ -97,8 +97,8 @@ public class Mission
     public Mission()
     {
         GameReference  = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
-        MissionName = "";
-        MissionDescription = "";
+        MissionName = MissionStrings.GetMissionName();
+        MissionDescription = MissionStrings.GetMissionDescription();
         MissionDificulty = Random.Range(1, 10);
 
         MissionTime = Random.Range(5, 10) * 0.5;

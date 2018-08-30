@@ -28,6 +28,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
             missionButton.transform.SetParent(MissionPanel, false);
             missionButton.transform.localPosition = new Vector3(missionButton.transform.localPosition.x, (missionButton.transform.localPosition.y - (i * (missionButton.GetComponent<RectTransform>().rect.height + 2))), missionButton.transform.localPosition.z);
             int id = i;
+            missionButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Mission: "+game.Missions[id].MissionName;
             missionButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 activeMission = id;
