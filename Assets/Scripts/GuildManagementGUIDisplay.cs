@@ -63,7 +63,8 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
                 $"Mana: {h.Stats.Mana}\n\n" +
                 $"Agility: {h.Stats.Agility}\n" +
                 $"Strength: {h.Stats.Strength}\n" +
-                $"Intelligence: {h.Stats.Intelligence}\n";
+                $"Intelligence: {h.Stats.Intelligence}\n" +
+                $"{(h.AssignedMission != null ? $"On mission: {h.AssignedMission.MissionName}" : "")}";
         }
     }
 

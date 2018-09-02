@@ -168,8 +168,13 @@ public class Game : MonoBehaviour {
     public void BeginMission(List<Hero> assignedHeroes, Mission currentMision)
     {
         currentMision.SetHeroes(assignedHeroes);
+        foreach(var h in assignedHeroes)
+        {
+            h.AssignedMission = currentMision;
+        }
         ActiveMission.Add(currentMision);
         Missions.Remove(currentMision);
+        assignedHeroes.Clear();
     }
 
 

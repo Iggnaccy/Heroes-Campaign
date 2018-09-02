@@ -14,17 +14,6 @@ public class Mission
 
 
 
-    public enum MissionStates
-    {
-        Available,
-        Active,
-        Completed,
-        Failed
-    }
-
-
-
-
 
     public Game GameReference;
     public List<Hero> ParticipatingHeroes { get; set; }
@@ -44,7 +33,6 @@ public class Mission
     public int MissionDificulty { get; private set; }
 
     public MissionTypes MissionType { get; private set; }
-    public MissionStates MissionState { get; private set; }
 
 
 
@@ -67,14 +55,15 @@ public class Mission
         MissionDificulty = missionDificulty;
 
         MissionType = missionType;
-        MissionState = MissionStates.Available;
     }
 
 
     public void SetHeroes(List<Hero> participatingHeroes)
     {
-        ParticipatingHeroes = participatingHeroes;
-        MissionState = MissionStates.Active;
+        foreach(Hero h in participatingHeroes)
+        {
+            ParticipatingHeroes.Add(h);
+        }
     }
 
     public void Victory()
@@ -85,12 +74,14 @@ public class Mission
 
         for (int i = 0; i < ParticipatingHeroes.Count; i++)
         {
+            Debug.Log("Awarding next hero");
+            ParticipatingHeroes[i].Log();
             ParticipatingHeroes[i].GainExp(ExpEarned);
+            ParticipatingHeroes[i].AssignedMission = null;
         }
         //To Do zwracanie poiwadomienia o ukończeniu misji
 
         Debug.Log("Mission Acomplished");
-        MissionState = MissionStates.Completed;
         GameObject.FindGameObjectWithTag("PopupHolder").GetComponent<PopupHolder>().MakeSimplePopup("Mission " + MissionName + " Acomplished", "Worrisome");
     }
 
@@ -114,7 +105,6 @@ public class Mission
         FameEarned = 10 * MissionDificulty;
 
         MissionType = Utils.generateRandomEnum<MissionTypes>(new System.Random());
-        MissionState = MissionStates.Available;
 
         Debug.Log(string.Format("MissionTime {0}, Kingdoms {1}, ChaosReduction {2}, GoldEarned {3}, ExpEarned {4}, FameEarned {5}, MissionDificulty {6} MissionType {7}",
             MissionTime, Kingdoms, ChaosReduction, GoldEarned, ExpEarned, FameEarned, MissionDificulty, MissionType));

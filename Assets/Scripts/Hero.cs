@@ -95,6 +95,7 @@ public class Hero {
     public HeroStats Stats {get; set;}
     public int Salary { get; set; }
     public Sprite Portrait { get; set; }
+    public Mission AssignedMission { get; set; }
 
     //there should be another construcor for reading saved Heros from file/db
     public Hero(string name, HeroProfession profession, HeroRace race, HeroSex sex, 

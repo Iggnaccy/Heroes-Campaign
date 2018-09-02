@@ -7,17 +7,19 @@ public class MissionAssignmentGUI : MonoBehaviour {
 
     public Transform MissionPanel, HeroPanel;
     public Text MissionDesc;
+    public GameObject ConfirmButton;
 
     PrefabHolder ph;
 
     int activeMission;
-    private List<Hero> ChosenHeores;
+    private List<Hero> ChosenHeroes;
 
 	// Use this for initialization
 	void Awake () {
         ph = GameObject.FindGameObjectWithTag("PrefabHolder").GetComponent<PrefabHolder>();
         activeMission = -1;
-        ChosenHeores = new List<Hero>();
+        ChosenHeroes = new List<Hero>();
+        ConfirmButton.SetActive(false);
 	}
 	
     public void DisplayMissionPanel(Game game)
@@ -28,7 +30,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
             missionButton.transform.SetParent(MissionPanel, false);
             missionButton.transform.localPosition = new Vector3(missionButton.transform.localPosition.x, (missionButton.transform.localPosition.y - (i * (missionButton.GetComponent<RectTransform>().rect.height + 2))), missionButton.transform.localPosition.z);
             int id = i;
-            missionButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Mission: "+game.Missions[id].MissionName;
+            missionButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Mission: " + game.Missions[id].MissionName;
             missionButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 activeMission = id;
@@ -45,30 +47,67 @@ public class MissionAssignmentGUI : MonoBehaviour {
             heroButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 if ((activeMission < 0 || activeMission >= game.Missions.Count) ) return;
-                if (!ChosenHeores.Contains(game.Player.Heroes[id]))
-                    ChosenHeores.Add(game.Player.Heroes[id]);
+                if (!ChosenHeroes.Contains(game.Player.Heroes[id]))
+                {
+                    ChosenHeroes.Add(game.Player.Heroes[id]);
+                }
                 else
-                    ChosenHeores.Remove(game.Player.Heroes[id]);
+                {
+                    ChosenHeroes.Remove(game.Player.Heroes[id]);
+                }
                 //Debug.Log($"Added hero {id}: {game.Player.Heroes[id].Name} to mission {activeMission}: {game.Missions[activeMission].MissionName}");
                 UpdateDisplayMission(game);
             });
+            if(game.Player.Heroes[id].AssignedMission != null)
+            {
+                heroButton.transform.GetChild(1).gameObject.SetActive(true);
+                heroButton.GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                heroButton.transform.GetChild(1).gameObject.SetActive(false);
+                heroButton.GetComponent<Button>().interactable = true;
+            }
         }
+        UpdateDisplayMission(game);
     }
 
     void UpdateDisplayMission(Game game)
     {
-        Mission m = game.Missions[activeMission];
-        MissionDesc.text = $"<b><size=24>{m.MissionName}</size></b>\n\n" +
-            $"{m.MissionDescription}\n\n" +
-            $"Participating heroes:\n";
-        string heroes = "";
-        foreach(Hero h in ChosenHeores)
+        if (activeMission < 0 || activeMission >= game.Missions.Count)
         {
-            if (heroes.Length > 0)
-                heroes += $", {h.Name} ({h.Profession})";
-            else heroes += $"{h.Name} ({h.Profession})";
+            MissionDesc.text = "<b>Choose a mission from the panel on the left,\n" +
+                "and assign heroes to a mission using the bottom panel</b>";
+            ConfirmButton.SetActive(false);
         }
-        MissionDesc.text += heroes;
+        else
+        {
+            Mission m = game.Missions[activeMission];
+            MissionDesc.text = $"<b><size=24>{m.MissionName}</size></b>\n\n" +
+                $"{m.MissionDescription}\n\n" +
+                $"Participating heroes:\n";
+            string heroes = "";
+            foreach (Hero h in ChosenHeroes)
+            {
+                if (heroes.Length > 0)
+                    heroes += $", {h.Name} ({h.Profession})";
+                else heroes += $"{h.Name} ({h.Profession})";
+            }
+            MissionDesc.text += heroes;
+            if (ChosenHeroes.Count > 0)
+            {
+                ConfirmButton.SetActive(true);
+                ConfirmButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                ConfirmButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    game.BeginMission(ChosenHeroes, game.Missions[activeMission]);
+                    Clear();
+                    DisplayMissionPanel(game);
+                    activeMission = -1;
+                });
+            }
+            else ConfirmButton.SetActive(false);
+        }
     }
 
     public void Clear()
@@ -82,5 +121,6 @@ public class MissionAssignmentGUI : MonoBehaviour {
             Destroy(child.gameObject);
         }
         activeMission = -1;
+        ConfirmButton.SetActive(false);
     }
 }
