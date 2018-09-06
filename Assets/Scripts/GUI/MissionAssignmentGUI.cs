@@ -72,7 +72,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
         UpdateDisplayMission(game);
     }
 
-    void UpdateDisplayMission(Game game)
+    public void UpdateDisplayMission(Game game)
     {
         if (activeMission < 0 || activeMission >= game.Missions.Count)
         {

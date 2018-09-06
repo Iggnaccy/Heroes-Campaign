@@ -79,6 +79,7 @@ public class Game : MonoBehaviour {
                 CompletedMission.Add(ActiveMission[i]);
                 ActiveMission.RemoveAt(i);
                 i--;
+                GetComponent<MissionAssignmentGUI>().DisplayMissionPanel(this);
             }
         }
         foreach (Kingdom kingdom in Locations)
