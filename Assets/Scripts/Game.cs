@@ -17,8 +17,11 @@ public class Game : MonoBehaviour {
     public List<Mission> ActiveMission { get; private set; }
     public List<Mission> CompletedMission { get; private set; }
 
+    private bool isRunning;   //is Game running or are we in game finished state?
+
     void StartGame()
     {
+        isRunning = true;
         EndingPanel.SetActive(false);
         rng = new System.Random();
         Player = new Player("test", 0, StaticValues.InitialGold);
@@ -69,25 +72,13 @@ public class Game : MonoBehaviour {
 	
 	void Update ()
     {
-        TimeManager.Update();
-        for (int i = 0; i < ActiveMission.Count; i++)
+        if (isRunning)
         {
-            ActiveMission[i].RemainingTime -= TimeManager.DeltaTime;
-            if (ActiveMission[i].RemainingTime <= 0)
-            {
-                ActiveMission[i].Victory();
-                CompletedMission.Add(ActiveMission[i]);
-                ActiveMission.RemoveAt(i);
-                i--;
-            }
+            TimeManager.Update();
+            UpdateMissions();
+            HandleGameFinishChecks();
+            Player.Update();
         }
-        foreach (Kingdom kingdom in Locations)
-            kingdom.CheckIfAlive();
-        if (Kingdom.ChaosOverwhelming >= StaticValues.MaxChaosOverwhelming)
-        {
-            GameOver();
-        }
-        Player.Update();
     }
 
     public void ChangeDisplay(int i)
@@ -156,8 +147,9 @@ public class Game : MonoBehaviour {
         return Locations.Count;
     }*/
 
-    public void GameOver()
+    public void GameOver(bool win)
     {
+        isRunning = false;
         foreach(Transform t in EndingPanel.transform.parent)
         {
             t.gameObject.SetActive(false);
@@ -177,5 +169,37 @@ public class Game : MonoBehaviour {
         assignedHeroes.Clear();
     }
 
+    private void UpdateMissions() {
+        for (int i = 0; i < ActiveMission.Count; i++)
+        {
+            ActiveMission[i].RemainingTime -= TimeManager.DeltaTime;
+            if (ActiveMission[i].RemainingTime <= 0)
+            {
+                ActiveMission[i].Victory();
+                CompletedMission.Add(ActiveMission[i]);
+                ActiveMission.RemoveAt(i);
+                i--;
+            }
+        }
+    }
+
+    private void HandleGameFinishChecks() {
+        bool allKingdomsCleansed = true;
+        foreach (Kingdom kingdom in Locations)
+        {
+            if (!kingdom.IsAvailable())
+                kingdom.SetKingdomLocked(true);
+            if (!kingdom.IsCleansed())
+                allKingdomsCleansed = false;
+        }
+        if (Kingdom.ChaosOverwhelming >= StaticValues.MaxChaosOverwhelming)
+            GameOver(false);
+
+        //I would reward player with special achievement for finishing with 0 gold
+        //Or any other special number 1/7
+        if (Player.Fame >= StaticValues.MinimumWinningFame && allKingdomsCleansed
+            && Player.Gold >= 0)
+            GameOver(true);
+    } 
 
 }
