@@ -95,7 +95,7 @@ public class Mission
         MissionTime = Random.Range(5, 10) * 0.5;
         RemainingTime = MissionTime;
 
-        int tmp = StaticValues.NumberOfKIngdoms;
+        int tmp = StaticValues.NumberOfKingdoms;
         Kingdoms = Random.Range(1, (1 << tmp) - 1);
         ParticipatingHeroes = new List<Hero>();
 

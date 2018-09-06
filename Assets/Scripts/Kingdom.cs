@@ -9,22 +9,31 @@ public class Kingdom
     public string Description { get; private set; }
     public static int ChaosOverwhelming { get;  set; } = 0;
   
-    public bool alive;
+    public bool available;
+
     public Kingdom(string name, int id, string description)
     {
-        alive = true;
+        available = true;
         Name = name;
         ID = id;
         Chaos = StaticValues.startingChaos;
         Description = description;
     }
 
-    public void CheckIfAlive()
+    public bool IsAvailable()
     {
-       if (Chaos < StaticValues.MaxChaos)
-            return;
-        alive = false;
-        ChaosOverwhelming++;
+        return Chaos < StaticValues.MaxChaos;
     }
 
+    public bool IsCleansed() {
+        return Chaos <= StaticValues.ChaosLevelForCleansedKingdom;
+    }
+
+    public void SetKingdomLocked(bool locked) {
+        available = !locked;
+        if (locked)
+            ChaosOverwhelming++;
+        else
+            ChaosOverwhelming--;
+    }
 }
