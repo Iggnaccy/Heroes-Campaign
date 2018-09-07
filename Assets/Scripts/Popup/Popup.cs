@@ -22,7 +22,7 @@ public class Popup {
     {
         PopupText = text;
         ButtonDescription =new string[] { buttonDescription};
-        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
+//        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
         Background = background;
     }
 
@@ -53,10 +53,7 @@ public class Popup {
 
     }*/
 
-    public void DoNothing()
-    {
 
-    }
 
 
 }

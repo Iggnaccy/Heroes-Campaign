@@ -10,7 +10,7 @@ public class PopupHolder : MonoBehaviour {
     public GameObject Button;
     public Sprite DefaultBackground;
     public Image Background;
-    public GameObject Content;
+    public RectTransform Content;
     public GameObject ScrollView;
     public Text Description;
 
@@ -37,6 +37,21 @@ public class PopupHolder : MonoBehaviour {
             buttonEffects[i] += ClosePopup;
         }
         PopupQueue.Enqueue(new Popup(text, buttonDescription, buttonEffects, background));
+        if (PopupQueue.Count == 1)
+        {
+            NextPopup();
+            //PopupQueue.Peek().Initialize();
+        }
+
+    }
+
+    public void MakePopup(string text, string[] buttonDescription, List<UnityAction> buttonEffects)
+    {
+        for (int i = 0; i < buttonEffects.Count; i++)
+        {
+            buttonEffects[i] += ClosePopup;
+        }
+        PopupQueue.Enqueue(new Popup(text, buttonDescription, buttonEffects, DefaultBackground));
         if (PopupQueue.Count == 1)
         {
             NextPopup();
@@ -88,14 +103,13 @@ public class PopupHolder : MonoBehaviour {
         Popup InitializedPopup = PopupQueue.Peek();
         Background.sprite = InitializedPopup.Background;
         Description.text = InitializedPopup.PopupText;
-        var rt = Content.GetComponent<RectTransform>();
-        var number = Button.GetComponent<RectTransform>().rect.height;
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x,System.Math.Max(ScrollView.GetComponent<RectTransform>().rect.height, InitializedPopup.ButtonEffects.Count * (number + 2)));
+        var height = Button.GetComponent<RectTransform>().rect.height;
+        Content.sizeDelta = new Vector2(Content.sizeDelta.x,System.Math.Max(ScrollView.GetComponent<RectTransform>().rect.height, InitializedPopup.ButtonEffects.Count * (height + 2)+4));
         for (int i = 0; i < InitializedPopup.ButtonEffects.Count; i++)
         {
             GameObject PopupButton = MonoBehaviour.Instantiate(Button);
             PopupButton.transform.SetParent(Content.transform, false);
-            PopupButton.transform.localPosition = new Vector3(PopupButton.transform.localPosition.x, PopupButton.transform.localPosition.y - (i * (number + 2)));
+            PopupButton.transform.localPosition = new Vector3(PopupButton.transform.localPosition.x, PopupButton.transform.localPosition.y - ((i-2.5f) * (height + 2)));
 
             PopupButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = InitializedPopup.ButtonDescription[i];
 
@@ -106,5 +120,10 @@ public class PopupHolder : MonoBehaviour {
         }
     }
 
+
+    public void DoNothing()
+    {
+
+    }
 
 }
