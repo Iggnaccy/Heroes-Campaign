@@ -16,6 +16,8 @@ public class HeroRecruitmentGUI : MonoBehaviour {
     Player player;
     List<Hero> AvailableHeroes;
 
+    public RectTransform HeroButtonHolder;
+
     void Awake()
     {
         ph = GameObject.FindGameObjectWithTag("PrefabHolder").GetComponent<PrefabHolder>();
@@ -55,10 +57,11 @@ public class HeroRecruitmentGUI : MonoBehaviour {
     {
         AvailableHeroes = game.AvailableHeroes;
         player = game.Player;
+        HeroButtonHolder.sizeDelta = new Vector2(HeroButtonHolder.rect.width, System.Math.Max(HeroPanel.GetComponent<RectTransform>().rect.height, AvailableHeroes.Count* (ph.RecruitHeroButton.GetComponent<RectTransform>().rect.height + 2)));
         for(int i = 0; i < AvailableHeroes.Count; i++)
         {
             GameObject HeroButton = Instantiate(ph.RecruitHeroButton);
-            HeroButton.transform.SetParent(HeroPanel.transform, false);
+            HeroButton.transform.SetParent(HeroButtonHolder, false);
             HeroButton.transform.localPosition = new Vector3(HeroButton.transform.localPosition.x, HeroButton.transform.localPosition.y - (i * (HeroButton.GetComponent<RectTransform>().rect.height + 2)));
             /*
              Tutaj wstaw edycję obrazku,
@@ -82,15 +85,16 @@ public class HeroRecruitmentGUI : MonoBehaviour {
 
     void ReDisplayHeroRecruitment()
     {
-        foreach(Transform child in HeroPanel.transform)
+        foreach(Transform child in HeroButtonHolder)
         {
             Destroy(child.gameObject);
         }
         buttons.Clear();
+        HeroButtonHolder.sizeDelta = new Vector2(HeroButtonHolder.rect.width, System.Math.Max(HeroPanel.GetComponent<RectTransform>().rect.height, AvailableHeroes.Count * (ph.RecruitHeroButton.GetComponent<RectTransform>().rect.height + 2)));
         for (int i = 0; i < AvailableHeroes.Count; i++)
         {
             GameObject HeroButton = Instantiate(ph.RecruitHeroButton);
-            HeroButton.transform.SetParent(HeroPanel.transform, false);
+            HeroButton.transform.SetParent(HeroButtonHolder, false);
             HeroButton.transform.localPosition = new Vector3(HeroButton.transform.localPosition.x, HeroButton.transform.localPosition.y - (i * (HeroButton.GetComponent<RectTransform>().rect.height + 2)));
             /*
              Tutaj wstaw edycję obrazku,
@@ -136,7 +140,7 @@ public class HeroRecruitmentGUI : MonoBehaviour {
 
     public void Clear()
     {
-        foreach (Transform child in HeroPanel.transform)
+        foreach (Transform child in HeroButtonHolder)
         {
             Destroy(child.gameObject);
         }

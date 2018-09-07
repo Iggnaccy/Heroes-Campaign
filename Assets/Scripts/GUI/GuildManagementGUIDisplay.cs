@@ -9,6 +9,8 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
     public GameObject GuildManagementHeroPanel;
     public Text GuildManagementHeroDescription;
 
+    public RectTransform HeroButtonHolder;
+
     float GuildManagementHeroButtonHeight;
     int DisplayHero;
 
@@ -21,17 +23,18 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
 
     public void DisplayHeroButtons(Player player)
     {
-        foreach(Transform child in GuildManagementHeroPanel.transform)
+        foreach(Transform child in HeroButtonHolder)
         {
             if(child.tag.ToLower() != "slider")
             {
                 Destroy(child);
             }
         }
+        HeroButtonHolder.sizeDelta = new Vector2(HeroButtonHolder.rect.width, System.Math.Max(player.Heroes.Count* (GuildManagementHeroButtonHeight + 3), GuildManagementHeroPanel.GetComponent<RectTransform>().rect.height));
         for (int i = 0; i < player.Heroes.Count; i++)
         {
             GameObject rt = Instantiate(ph.GuildManagementHeroButton);
-            rt.transform.SetParent(GuildManagementHeroPanel.transform, false);
+            rt.transform.SetParent(HeroButtonHolder, false);
             rt.transform.localPosition = new Vector3(rt.transform.localPosition.x, rt.transform.localPosition.y - i * (GuildManagementHeroButtonHeight + 3));
             var button = rt.GetComponent<Button>();
             int id = i;
@@ -70,7 +73,7 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
 
     public void Clear()
     {
-        foreach (Transform child in GuildManagementHeroPanel.transform)
+        foreach (Transform child in HeroButtonHolder)
         {
             if (child.tag.ToLower() != "slider")
             {

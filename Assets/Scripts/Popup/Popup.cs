@@ -7,29 +7,31 @@ public class Popup {
     public string PopupText;
     //List<Button> ListOfButtons;
     public Sprite Background;
-    GameObject ParentObject;
-    List<UnityAction> ButtonEffects;
-    string[] ButtonDescription;
+    public List<UnityAction> ButtonEffects;
+    public string[] ButtonDescription;
 
-    public Popup(string text, string[] buttonDescription, List<UnityAction> buttonEffects,  Sprite background, GameObject parentObject)
+    public Popup(string text, string[] buttonDescription, List<UnityAction> buttonEffects,  Sprite background)
     {
         PopupText = text;
         ButtonDescription = buttonDescription;
         ButtonEffects = buttonEffects;
         Background = background;
-        ParentObject = parentObject;
     }
 
-    public Popup(string text, string buttonDescription, Sprite background, GameObject parentObject)
+    public Popup(string text, string buttonDescription, Sprite background)
     {
         PopupText = text;
         ButtonDescription =new string[] { buttonDescription};
-        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
+//        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
         Background = background;
-        ParentObject = parentObject;
     }
 
-    public virtual void Initialize()
+    public Popup()
+    {
+
+    }
+
+    /*public virtual void Initialize()
     {
         //ListOfButtons = new List<Button>();
         PopupHolder TemporaryPointer = ParentObject.GetComponent<PopupHolder>();
@@ -49,12 +51,9 @@ public class Popup {
 
         }
 
-    }
+    }*/
 
-    public void DoNothing()
-    {
 
-    }
 
 
 }
