@@ -69,7 +69,7 @@ public class Game : MonoBehaviour {
     {
         StartGame();
         var popup = GameObject.FindGameObjectWithTag("PopupHolder").GetComponent<PopupHolder>();
-        popup.MakePopup("Welcome", new string[] { "1", "4", "2", "8", "5", "7" }, new List<UnityEngine.Events.UnityAction> {popup.DoNothing, popup.DoNothing , popup.DoNothing , popup.DoNothing, popup.DoNothing, popup.DoNothing });
+        //popup.MakePopup("Welcome", new string[] { "1", "4", "2", "8", "5", "7" }, new List<UnityEngine.Events.UnityAction> {popup.DoNothing, popup.DoNothing , popup.DoNothing , popup.DoNothing, popup.DoNothing, popup.DoNothing });
     }
 	
 	void Update ()

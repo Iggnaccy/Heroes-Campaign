@@ -35,6 +35,7 @@ public class GuildManagementGUIDisplay : MonoBehaviour {
         {
             GameObject rt = Instantiate(ph.GuildManagementHeroButton);
             rt.transform.SetParent(HeroButtonHolder, false);
+            rt.transform.GetChild(1).GetComponent<Image>().sprite = Cache.GetPortrait(player.Heroes[i].Sex, player.Heroes[i].Race, player.Heroes[i].Profession);
             rt.transform.localPosition = new Vector3(rt.transform.localPosition.x, rt.transform.localPosition.y - i * (GuildManagementHeroButtonHeight + 3));
             var button = rt.GetComponent<Button>();
             int id = i;

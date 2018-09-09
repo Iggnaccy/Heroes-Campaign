@@ -7,29 +7,24 @@ public class Popup {
     public string PopupText;
     //List<Button> ListOfButtons;
     public Sprite Background;
-    public List<UnityAction> ButtonEffects;
-    public string[] ButtonDescription;
+    public List<ButtonBase> Buttons;
 
-    public Popup(string text, string[] buttonDescription, List<UnityAction> buttonEffects,  Sprite background)
+
+    public Popup(string text, List<ButtonBase> buttons,  Sprite background)
     {
         PopupText = text;
-        ButtonDescription = buttonDescription;
-        ButtonEffects = buttonEffects;
+        Buttons = buttons;
         Background = background;
     }
 
     public Popup(string text, string buttonDescription, Sprite background)
     {
         PopupText = text;
-        ButtonDescription =new string[] { buttonDescription};
+        Buttons =new List<ButtonBase> { };
 //        ButtonEffects = new List<UnityAction> { new UnityAction(DoNothing) };
         Background = background;
     }
 
-    public Popup()
-    {
-
-    }
 
     /*public virtual void Initialize()
     {
@@ -52,7 +47,16 @@ public class Popup {
         }
 
     }*/
-
+    public class ButtonBase
+    {
+        public string ButtonName;
+        public UnityAction ButtonAction;
+        public ButtonBase(string buttonName, UnityAction buttonAction)
+        {
+            ButtonName = buttonName;
+            ButtonAction = buttonAction;
+        }
+    }
 
 
 

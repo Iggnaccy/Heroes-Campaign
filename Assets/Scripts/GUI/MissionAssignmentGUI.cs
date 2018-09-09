@@ -50,6 +50,7 @@ public class MissionAssignmentGUI : MonoBehaviour {
             heroButton.transform.SetParent(HeroButtonHolder.transform, false);
             heroButton.transform.localPosition = new Vector3(( ((i+0.5f) * (heroButton.GetComponent<RectTransform>().rect.width + 2))), heroButton.transform.localPosition.y, heroButton.transform.localPosition.z);
             heroButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = game.Player.Heroes[i].Name;
+            heroButton.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = Cache.GetPortrait(game.Player.Heroes[i].Sex, game.Player.Heroes[i].Race, game.Player.Heroes[i].Profession);
             int id = i;
             heroButton.GetComponent<Button>().onClick.AddListener(() =>
             {
@@ -67,12 +68,12 @@ public class MissionAssignmentGUI : MonoBehaviour {
             });
             if(game.Player.Heroes[id].AssignedMission != null)
             {
-                heroButton.transform.GetChild(1).gameObject.SetActive(true);
+                heroButton.transform.GetChild(2).gameObject.SetActive(true);
                 heroButton.GetComponent<Button>().interactable = false;
             }
             else
             {
-                heroButton.transform.GetChild(1).gameObject.SetActive(false);
+                heroButton.transform.GetChild(2).gameObject.SetActive(false);
                 heroButton.GetComponent<Button>().interactable = true;
             }
         }

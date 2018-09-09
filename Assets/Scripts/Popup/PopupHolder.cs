@@ -22,7 +22,7 @@ public class PopupHolder : MonoBehaviour {
 
     public void MakeSimplePopup(string text, string buttonDescription)
     {
-        PopupQueue.Enqueue(new Popup(text, new string[]{buttonDescription } ,new List<UnityAction> {new UnityAction(ClosePopup) } ,DefaultBackground));
+        PopupQueue.Enqueue(new Popup(text, new List<Popup.ButtonBase>{new Popup.ButtonBase(buttonDescription, new UnityAction(ClosePopup)) } ,DefaultBackground));
         if(PopupQueue.Count==1)
         {
             NextPopup();
@@ -30,13 +30,13 @@ public class PopupHolder : MonoBehaviour {
         }
     }
 
-    public void MakePopup(string text, string[] buttonDescription, List<UnityAction> buttonEffects, Sprite background)
+    public void MakePopup(string text, List<Popup.ButtonBase> buttons, Sprite background)
     {
-        for (int i = 0; i < buttonEffects.Count; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            buttonEffects[i] += ClosePopup;
+            buttons[i].ButtonAction += ClosePopup;
         }
-        PopupQueue.Enqueue(new Popup(text, buttonDescription, buttonEffects, background));
+        PopupQueue.Enqueue(new Popup(text, buttons, background));
         if (PopupQueue.Count == 1)
         {
             NextPopup();
@@ -45,13 +45,13 @@ public class PopupHolder : MonoBehaviour {
 
     }
 
-    public void MakePopup(string text, string[] buttonDescription, List<UnityAction> buttonEffects)
+    public void MakePopup(string text, List<Popup.ButtonBase> buttons)
     {
-        for (int i = 0; i < buttonEffects.Count; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            buttonEffects[i] += ClosePopup;
+            buttons[i].ButtonAction += ClosePopup;
         }
-        PopupQueue.Enqueue(new Popup(text, buttonDescription, buttonEffects, DefaultBackground));
+        PopupQueue.Enqueue(new Popup(text, buttons, DefaultBackground));
         if (PopupQueue.Count == 1)
         {
             NextPopup();
@@ -60,10 +60,10 @@ public class PopupHolder : MonoBehaviour {
 
     }
 
-    public void MakeCustomPopup(string text, string[] buttonDescription, List<UnityAction> buttonEffects, Sprite background)
+    public void MakeCustomPopup(string text, List<Popup.ButtonBase> buttons, Sprite background)
     {
-        buttonEffects[buttonEffects.Count - 1] += ClosePopup;
-        PopupQueue.Enqueue(new Popup(text, buttonDescription, buttonEffects, background));
+        buttons[buttons.Count - 1].ButtonAction += ClosePopup;
+        PopupQueue.Enqueue(new Popup(text, buttons, background));
         if (PopupQueue.Count == 1)
         {
             NextPopup();
@@ -104,17 +104,18 @@ public class PopupHolder : MonoBehaviour {
         Background.sprite = InitializedPopup.Background;
         Description.text = InitializedPopup.PopupText;
         var height = Button.GetComponent<RectTransform>().rect.height;
-        Content.sizeDelta = new Vector2(Content.sizeDelta.x,System.Math.Max(ScrollView.GetComponent<RectTransform>().rect.height, InitializedPopup.ButtonEffects.Count * (height + 2)+4));
-        for (int i = 0; i < InitializedPopup.ButtonEffects.Count; i++)
+        Content.sizeDelta = new Vector2(Content.sizeDelta.x,System.Math.Max(ScrollView.GetComponent<RectTransform>().rect.height, InitializedPopup.Buttons.Count * (height + 2)+4));
+        for (int i = 0; i < InitializedPopup.Buttons.Count; i++)
         {
             GameObject PopupButton = MonoBehaviour.Instantiate(Button);
             PopupButton.transform.SetParent(Content.transform, false);
-            PopupButton.transform.localPosition = new Vector3(PopupButton.transform.localPosition.x, PopupButton.transform.localPosition.y - ((i-2.5f) * (height + 2)));
+            Debug.Log(Button.transform.localPosition.y);
+            PopupButton.transform.localPosition = new Vector3(PopupButton.transform.localPosition.x, -158 - ((i-2.5f) * (height + 2)));
 
-            PopupButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = InitializedPopup.ButtonDescription[i];
+            PopupButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = InitializedPopup.Buttons[i].ButtonName;
 
             Button ButtonReference = PopupButton.GetComponent<Button>();
-            ButtonReference.onClick.AddListener(InitializedPopup.ButtonEffects[i]);
+            ButtonReference.onClick.AddListener(InitializedPopup.Buttons[i].ButtonAction);
             //ButtonReference.onClick.AddListener(InitializedPopup.ClosePopup);
 
         }
