@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,14 @@ public class Game : MonoBehaviour {
     public List<Mission> ActiveMission { get; private set; }
     public List<Mission> CompletedMission { get; private set; }
 
+    public static EventTable events;
+
     private bool isRunning;   //is Game running or are we in game finished state?
+
+    public void test1(object source, EventArgs e) {
+        GoldWasFoundArgs gf = e as GoldWasFoundArgs;
+        Debug.Log($"Gold Found! ${gf.player.Fame}, ${gf.player.Gold}");
+    }
 
     void StartGame()
     {
@@ -26,6 +34,10 @@ public class Game : MonoBehaviour {
         rng = new System.Random();
         Player = new Player("test", 0, StaticValues.InitialGold);
         PlayerStatsPanel.GetComponent<PlayerStatsPanel>().SetPlayer(Player);
+        events = new EventTable(rng);
+
+        events.Add(new Event(0.01, 0.0, new GoldWasFoundArgs(Player), test1));
+           
         Missions = new List<Mission>
         {
             new Mission(),
@@ -77,6 +89,7 @@ public class Game : MonoBehaviour {
         if (isRunning)
         {
             TimeManager.Update();
+            events.Update();
             UpdateMissions();
             HandleGameFinishChecks();
             Player.Update();

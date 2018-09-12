@@ -1,70 +1,42 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-public class Event : MonoBehaviour
-{
+public class Event {
 
-    public double probability { get; private set; } // <0,1>
-    public Player player { get; set; }
-    System.Random random;
+    private bool shouldResetProbability = false;
+    private double initialProbability;
 
+	public double probability   { get; private set; }
+	public double gain          { get; private set; }
+    public Popup popup          { get; private set; }
+    private EventArgs eventArgs;
+    public event EventHandler<EventArgs> callback;
 
-    public enum EventTypes
-    {
-        Special_Mission,
-        New_Hero,
-        Gold_Was_Found,
-        Increase_Of_Upkeep_Cost
+    public Event(double _probability, double _gain/*, Popup _popup*/, EventArgs args,  EventHandler<EventArgs> handler) {
+        probability = _probability;
+        initialProbability = probability;
+        gain = _gain;
+        //popup = _popup;
+        eventArgs = args;
+        callback += handler;
     }
 
-   // public delegate void EventHandler<TEventArgs>(object sender, TEventArgs e);
-
-    public event EventHandler<SpecialMissionArgs> SpecialMission;
-    public event EventHandler<NewHeroArgs> NewHero;
-    public event EventHandler<GoldWasFoundArgs> GoldWasFound;
-    public event EventHandler<IncreaseOfUpkeepCostArgs> IncreaseOfUpkeepCost;
-                              
-
-
-    // Use this for initialization
-    void Start()
+    public bool ShouldFire(double d)
     {
-        probability = 0;
-        random = new System.Random();
-       
+        return d >= probability;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Run()
     {
-        probability += 0.01 * TimeManager.DeltaTime;
-        bool t = false;
-        if (probability >= random.NextDouble() && SpecialMission != null)
-        {
-            t = true;
-            SpecialMission(this, new SpecialMissionArgs(player));
-        }
-        if (probability >= random.NextDouble() && NewHero != null)
-        {
-            t = true;
-            NewHero(this, new NewHeroArgs(player));
-        }
-        if (probability >= random.NextDouble() && GoldWasFound != null)
-        {
-            t = true;
-            GoldWasFound(this, new GoldWasFoundArgs(player));
-        }
-        if (probability >= random.NextDouble() && IncreaseOfUpkeepCost != null)
-        {
-            t = true;
-            IncreaseOfUpkeepCost(this, new IncreaseOfUpkeepCostArgs(player));
-        }
-
-        if (t == true)
-            probability = 0;
+        if (shouldResetProbability)
+            probability = initialProbability;
+        callback(this, eventArgs);
     }
 
+    public void Update()
+    {
+        probability += gain * TimeManager.DeltaTime;
+    }
 }
